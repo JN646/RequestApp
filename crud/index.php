@@ -6,7 +6,7 @@
 session_start();
 
 // initialise variables
-$name = $type  = "";
+$name = $type = $imagePath  = "";
 $update = false;
 
 if (isset($_GET['edit'])) {
@@ -19,6 +19,7 @@ if (isset($_GET['edit'])) {
         $id = $n['item_id'];
         $name = $n['item_name'];
         $type = $n['item_type'];
+        $imagePath = $n['item_image'];
     }
 }
 ?>
@@ -67,6 +68,14 @@ if (isset($_GET['edit'])) {
                     <div class="form-group">
                   		<label class="">Type</label><br>
                   		<input class='form-control' type="text" name="type" placeholder="Item Type" value="<?php echo $type; ?>">
+                    </div>
+                  </div>
+
+                  <!-- Image Path -->
+                  <div class='col'>
+                    <div class="form-group">
+                      <label class="">Image Path</label><br>
+                      <input class='form-control' type="text" name="imagePath" placeholder="Image Path" value="<?php echo $imagePath; ?>">
                     </div>
                   </div>
                 </div>
