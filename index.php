@@ -1,46 +1,45 @@
-
 <?php include 'partials/_header.php' ?>
 <body>
 <div class="fluid-container">
   <br>
   <div class="col-md-12">
     <h2>Request Home</h2>
-    <?php
-    // Check connection
-    if($link === false){
-        die("ERROR: Could not connect. " . mysqli_connect_error());
-    }
-
-    // Attempt select query execution
-    $sql = "SELECT * FROM items";
-    if($result = mysqli_query($link, $sql)){
-        if(mysqli_num_rows($result) > 0){
-            echo "<table class='table table-bordered'>";
-                echo "<tr>";
-                    echo "<th class='text-center'>ID</th>";
-                    echo "<th class='text-center'>Name</th>";
-                    echo "<th class='text-center'>Requests</th>";
-                echo "</tr>";
-            while($row = mysqli_fetch_array($result)){
-                echo "<tr>";
-                    echo "<td class='text-center'>" . $row['item_id'] . "</td>";
-                    echo "<td>" . $row['item_name'] . "</td>";
-                    echo "<td class='text-center'><a href='#'>Request</a></td>";
-                echo "</tr>";
+    <p><a href='crud/index.php'>CRUD</a></p>
+    <script>
+    function showUser(str) {
+        if (str == "") {
+            document.getElementById("txtHint").innerHTML = "";
+            return;
+        } else {
+            if (window.XMLHttpRequest) {
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                // code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
             }
-            echo "</table>";
-            // Free result set
-            mysqli_free_result($result);
-        } else{
-            echo "No records matching your query were found.";
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("txtHint").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET","getitems.php?q="+str,true);
+            xmlhttp.send();
         }
-    } else{
-        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
     }
+    </script>
+    <form>
+    <select name="users" onchange="showUser(this.value)">
+      <option value="">Select a type:</option>
+      <option value="1">Food</option>
+      <option value="2">Animal</option>
+      <option value="3">Music</option>
+      <option value="4">Lights</option>
+      </select>
+    </form>
+    <br>
+    <div id="txtHint"><b>Item info will be listed here...</b></div>
 
-    // Close connection
-    mysqli_close($link);
-    ?>
   </div>
 </div>
 </body>
