@@ -4,7 +4,17 @@
   <br>
   <div class="col-md-12">
     <h2>Request Home</h2>
-    <p><a href='crud/index.php'>CRUD</a></p>
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link" href='crud/index.php'>CRUD</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href='config/admin.php'>Admin</a>
+      </li>
+    </ul>
+
+    <br>
+
     <script>
     function showUser(str) {
         if (str == "") {
@@ -29,17 +39,30 @@
     }
     </script>
     <form>
-    <select name="users" onchange="showUser(this.value)">
-      <option value="">Select a type:</option>
-      <option value="1">Food</option>
-      <option value="2">Animal</option>
-      <option value="3">Music</option>
-      <option value="4">Lights</option>
-      </select>
+
+    <?php
+    // Type Drowndown Menu
+    $result = mysqli_query($link,"SELECT * FROM types ORDER BY type_name ASC");
+
+    // Generate Select box with AJAX link.
+    echo "<select class='form-control' name='users' onchange='showUser(this.value)'>";
+
+      // Default option.
+      echo "<option class='form-control' value='0'>Please select...</option>";
+
+      // Generate options from database.
+      while($row = mysqli_fetch_array($result)) {
+        echo "<option class='form-control' value='" . $row['type_id'] . "'>" . $row['type_name'] . "</option>";
+      }
+
+      // Close connection.
+      mysqli_close($link);
+      ?>
+    </select>
     </form>
     <br>
+    <!-- Display results -->
     <div id="txtHint"><b>Item info will be listed here...</b></div>
-
   </div>
 </div>
 </body>

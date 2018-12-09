@@ -137,15 +137,19 @@ if (isset($_GET['edit'])) {
               </thead>
               <?php
                   while ($row = mysqli_fetch_array($result)) {
+                    $itemID = $row['item_id'];
+                    $itemName = $row['item_name'];
+                    $itemType = $row['item_type'];
+
                       // Draw Table.
                       echo "<tbody>";
                         echo "<tr>";
-                          echo "<td>" . $row['item_id'] . "</td>";
-                          echo "<td>" . $row['item_name'] . "</td>";
-                          echo "<td>" . $row['item_type'] . "</td>";
-                          echo "<td class='text-center'><a href='view.php?id=" . $row['item_id'] . "' class='view_btn'><i class='fas fa-eye'></i></a></td>";
-                          echo "<td class='text-center'><a href='index.php?edit=" . $row['item_id'] . "' class='edit_btn'><i class='fas fa-edit'></i></a></td>";
-                          echo "<td class='text-center'><a href='server.php?del=" . $row['item_id'] . "' class='del_btn'><i class='far fa-trash-alt'></i></a></td>";
+                          echo "<td class='text-center'>" . $itemID . "</td>";
+                          echo "<td>" . $itemName . "</td>";
+                          echo "<td>" . $itemType . "</td>";
+                          echo "<td class='text-center'><a href='view.php?id=" . $itemID . "' class='view_btn'><i class='fas fa-eye'></i></a></td>";
+                          echo "<td class='text-center'><a href='index.php?edit=" . $itemID . "' class='edit_btn'><i class='fas fa-edit'></i></a></td>";
+                          echo "<td class='text-center'><a href='server.php?del=" . $itemID . "' class='del_btn'><i class='far fa-trash-alt'></i></a></td>";
                         echo "</tr>";
                       echo "</tbody>";
                   }

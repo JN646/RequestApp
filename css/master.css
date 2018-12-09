@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=KoHo');
+
+* {
+  font-family: 'KoHo', sans-serif;
+}
+
+.gridImage {
+  height: 250px;
+}
+
+img.gridImage.card-img-top {
+  object-fit: contain;
+}
