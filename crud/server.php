@@ -16,8 +16,9 @@ if (isset($_POST['save'])) {
   $name = $_POST['name'];
   $type = $_POST['type'];
   $imagePath = $_POST['imagePath'];
+  $active = $_POST['active'];
 
-  if(mysqli_query($link, "INSERT INTO items (item_name, item_type, item_image) VALUES ('$name', '$type', '$imagePath')")) {
+  if(mysqli_query($link, "INSERT INTO items (item_name, item_type, item_image, item_active) VALUES ('$name', '$type', '$imagePath', '$active')")) {
     $_SESSION['message'] = "<p class='alert alert-success'>Item Saved</p>";
     header('location: index.php');
   } else {
@@ -32,8 +33,9 @@ if (isset($_POST['update'])) {
   $name = $_POST['name'];
   $type = $_POST['type'];
   $imagePath = $_POST['imagePath'];
+  $active = $_POST['active'];
 
-  if(mysqli_query($link, "UPDATE items SET item_name='$name', item_type='$type', item_image='$imagePath' WHERE item_id='$id'")) {
+  if(mysqli_query($link, "UPDATE items SET item_name='$name', item_type='$type', item_image='$imagePath', item_active='$active' WHERE item_id='$id'")) {
     $_SESSION['message'] = "<p class='alert alert-success'>Item Updated</p>";
     header('location: index.php');
   } else {

@@ -6,7 +6,7 @@
 session_start();
 
 // initialise variables
-$name = $type = $imagePath  = "";
+$name = $type = $imagePath = $active = "";
 $update = false;
 
 if (isset($_GET['edit'])) {
@@ -20,6 +20,7 @@ if (isset($_GET['edit'])) {
         $name = $n['item_name'];
         $type = $n['item_type'];
         $imagePath = $n['item_image'];
+        $active = $n['item_active'];
     }
 }
 ?>
@@ -78,6 +79,15 @@ if (isset($_GET['edit'])) {
                       <input class='form-control' type="text" name="imagePath" placeholder="Image Path" value="<?php echo $imagePath; ?>">
                     </div>
                   </div>
+
+                  <!-- Item Active-->
+                  <div class='col'>
+                    <div class="form-group">
+                      <label class="">Active</label><br>
+                      <input type="hidden" name="active" value="0">
+                      <input id='activeCheckbox' type="checkbox" name="active" value="1">
+                    </div>
+                  </div>
                 </div>
 
                   <!-- Submit Buttons -->
@@ -88,6 +98,22 @@ if (isset($_GET['edit'])) {
                 			<button class="btn btn-success" type="submit" name="save">Add</button>
                 		<?php endif ?>
                 	</div>
+
+                  <script type="text/javascript">
+                    $(document).ready(function () {
+                      // Get active checkbox.
+                      var activeCheckbox = document.getElementById('activeCheckbox');
+
+                      // Set Active Checkbox Value
+                      if (<?php echo $active; ?> == 1) {
+                        // Check the box.
+                        activeCheckbox.checked = true;
+                      } else {
+                        // Uncheck the box.
+                        activeCheckbox.checked = false;
+                      }
+                    });
+                  </script>
                 </form>
               </div>
             </div>
