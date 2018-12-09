@@ -7,7 +7,11 @@ if (!$link) {
 }
 
 // Display Type Debug
-$displayType = 2;
+if ($_SESSION['viewMode'] == '') {
+  $displayType = 2;
+} else {
+  $displayType = $_SESSION['viewMode'];
+}
 
 // List
 if ($displayType == 1) {

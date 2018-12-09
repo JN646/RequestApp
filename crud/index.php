@@ -41,7 +41,7 @@ if (isset($_GET['edit'])) {
 
             <!-- Header -->
             <h1>Item Database</h1>
-            <p>Items you can choose from.</p>
+            <p>This is the item management pane. Use this system to manage and remove items from the system.</p>
 
             <!-- Form -->
             <div class='border border-primary'>
@@ -68,7 +68,26 @@ if (isset($_GET['edit'])) {
                   <div class='col'>
                     <div class="form-group">
                   		<label class="">Type</label><br>
-                  		<input class='form-control' type="text" name="type" placeholder="Item Type" value="<?php echo $type; ?>">
+                      <?php
+                      // Type Drowndown Menu
+                      $typeResult = mysqli_query($link,"SELECT * FROM types ORDER BY type_name ASC");
+
+                      // Generate Select box with AJAX link.
+                      echo "<select id='typeSelect' class='form-control' name='type'>";
+
+                        // Default option.
+                        echo "<option class='form-control' value='0'>Please select...</option>";
+
+                        // Generate options from database.
+                        while($row = mysqli_fetch_array($typeResult)) {
+                          echo "<option class='form-control' value='" . $row['type_id'] . "'>" . $row['type_name'] . "</option>";
+                        }
+
+                        echo "</select>";
+
+                        // Close connection.
+                        // mysqli_close($link);
+                        ?>
                     </div>
                   </div>
 
@@ -112,6 +131,8 @@ if (isset($_GET['edit'])) {
                         // Uncheck the box.
                         activeCheckbox.checked = false;
                       }
+
+                      $('#typeSelect').val('<?php echo $type; ?>');
                     });
                   </script>
                 </form>

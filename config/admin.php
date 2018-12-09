@@ -14,10 +14,38 @@ session_start();
     <h1>Admin</h1>
     <p>Admin configuration page.</p>
 
-    <!-- Form -->
-    <div class=''>
-      <div class='col-md-12'>
+    <?php
+    $_SESSION['viewMode'] = 1;
+    ?>
 
+    <!-- Form -->
+    <div class='border'>
+      <div class='col-md-12'>
+        <form class="" action="index.html" method="post">
+          <fieldset>
+            <legend>View</legend>
+            <div class="form-row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="viewMode">View Mode</label>
+                  <select class="form-control" name="viewMode">
+                    <option value="0">Please Select</option>
+                    <option value="1">Table</option>
+                    <option value="2">Grid</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <label for="viewHide">Hide Inactive</label>
+                  <input type="hidden" name="viewHide" value="0">
+                  <input class="form-control" type="checkbox" name="viewHide" value="1">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </form>
       </div>
     </div>
 

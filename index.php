@@ -1,4 +1,11 @@
 <?php include 'partials/_header.php' ?>
+
+<?php
+// Start Session
+session_start();
+?>
+
+<?php echo $_SESSION['viewMode'] ?>
 <body>
 <div class="fluid-container">
   <br>
