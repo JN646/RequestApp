@@ -24,7 +24,11 @@ while($row = mysqli_fetch_array($result)) {
     echo "<td><img class='listImage' src='images/" . $row['item_image'] . "' height='64px' width'64px'</td>";
     echo "<td>" . $row['item_name'] . "</td>";
     echo "<td>" . $row['item_type'] . "</td>";
-    echo "<td><a href='#'>Request</a></td>";
+
+    // Is item active?
+    if ($row['item_active'] == 1) {
+      echo "<td><a href='#'>Request</a></td>";
+    }
   echo "</tr>";
 }
 echo "</table>";
