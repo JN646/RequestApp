@@ -21,6 +21,9 @@ if (isset($_GET['edit'])) {
         $type = $n['item_type'];
         $imagePath = $n['item_image'];
         $active = $n['item_active'];
+        $field1 = $n['item_f1'];
+        $field2 = $n['item_f2'];
+        $field3 = $n['item_f3'];
     }
 }
 ?>
@@ -105,6 +108,34 @@ if (isset($_GET['edit'])) {
                       <label class="">Active</label><br>
                       <input type="hidden" name="active" value="0">
                       <input id='activeCheckbox' type="checkbox" name="active" value="1">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Second Row -->
+                <div class="form-row">
+
+                  <!-- Field 1 -->
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="field1">Field 1</label>
+                      <input class='form-control' type="text" name="field1" placeholder="Field 1" value="<?php echo $field1; ?>">
+                    </div>
+                  </div>
+
+                  <!-- Field 2 -->
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="field2">Field 2</label>
+                      <input class='form-control' type="text" name="field2" placeholder="Field 2" value="<?php echo $field2; ?>">
+                    </div>
+                  </div>
+
+                  <!-- Field 3 -->
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="field3">Field 3</label>
+                      <input class='form-control' type="text" name="field3" placeholder="Field 3" value="<?php echo $field3; ?>">
                     </div>
                   </div>
                 </div>

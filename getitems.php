@@ -58,7 +58,9 @@ if ($displayType == 2) {
     }
 
     echo "<div class='gridCard card col-md-2'>";
-      echo "<img class='gridImage card-img-top' src='images/" . $row['item_image'] . "' alt='" . $row['item_name'] . "'>";
+      echo "<a href=''>";
+        echo "<img class='gridImage card-img-top' src='images/" . $row['item_image'] . "' alt='" . $row['item_name'] . "'>";
+      echo "</a>";
       echo "<div class='card-body'>";
         echo "<h5 class='card-title text-center'>" . $row['item_name'] . "</h5>";
         // echo "<p class='card-text'>Some quick example text to build on the card title and make up the bulk of the cards content.</p>";
