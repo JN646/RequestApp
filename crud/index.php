@@ -19,6 +19,7 @@ if (isset($_GET['edit'])) {
         $id = $n['item_id'];
         $name = $n['item_name'];
         $type = $n['item_type'];
+        $notes = $n['item_notes'];
         $imagePath = $n['item_image'];
         $active = $n['item_active'];
         $field1 = $n['item_f1'];
@@ -136,6 +137,18 @@ if (isset($_GET['edit'])) {
                     <div class="form-group">
                       <label for="field3">Field 3</label>
                       <input class='form-control' type="text" name="field3" placeholder="Field 3" value="<?php echo $field3; ?>">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Third Row -->
+                <div class="form-row">
+
+                  <!-- Notes -->
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="notes">Notes</label>
+                      <textarea class='form-control' name="notes"><?php echo $notes; ?></textarea>
                     </div>
                   </div>
                 </div>

@@ -15,6 +15,7 @@
     $name = $microphone['item_name'];
     $itemSchema = $microphone['item_schema'];
     $type = $microphone['item_type'];
+    $notes = $microphone['item_notes'];
 
     // Field Mapping Schema
     $schemasql = "SELECT * FROM field_schema WHERE schema_id = $itemSchema";

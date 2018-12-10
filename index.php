@@ -5,7 +5,6 @@
 session_start();
 ?>
 
-<?php echo $_SESSION['viewMode'] ?>
 <body>
 <div class="fluid-container">
   <br>
