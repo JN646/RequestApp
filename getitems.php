@@ -58,7 +58,7 @@ if ($displayType == 2) {
     }
 
     echo "<div class='gridCard card col-md-2'>";
-      echo "<a href=''>";
+      echo "<a href='crud/view.php?id=" . $row['item_id'] . "'>";
         echo "<img class='gridImage card-img-top' src='images/" . $row['item_image'] . "' alt='" . $row['item_name'] . "'>";
       echo "</a>";
       echo "<div class='card-body'>";

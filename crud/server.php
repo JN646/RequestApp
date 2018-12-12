@@ -22,7 +22,7 @@ if (isset($_POST['save'])) {
   $field2 = $_POST['field2'];
   $field3 = $_POST['field3'];
 
-  if(mysqli_query($link, "INSERT INTO `items` (`item_name`, `item_type`, `item_image`, `item_active`, `item_notes`, `item_f1`, `item_f2`, `item_f3`) VALUES ('$name', '$type', '$imagePath', '$active', '$notes', '$field1', '$field2', '$field3'")) {
+  if(mysqli_query($link, "INSERT INTO items (`item_name`, `item_type`, `item_image`, `item_active`, `item_notes`, `item_f1`, `item_f2`, item_f3) VALUES ('$name', '$type', '$imagePath', '$active', '$notes', '$field1', '$field2', '$field3'")) {
     $_SESSION['message'] = "<p class='alert alert-success'>Item Saved</p>";
     header('location: index.php');
   } else {
