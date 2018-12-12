@@ -53,16 +53,20 @@ if ($displayType == 2) {
   $result = mysqli_query($link,$sql);
   echo "<div class='row'</div>";
   while($row = mysqli_fetch_array($result)) {
-    if ($row['item_image'] == '') {
-      $row['item_image'] = 'missing.jpg';
+    $itemImage = $row['item_image'];
+    $itemName = $row['item_name'];
+    $itemID = $row['item_id'];
+
+    if ($itemImage == '') {
+      $itemImage = 'missing.jpg';
     }
 
     echo "<div class='gridCard card col-md-2'>";
-      echo "<a href='crud/view.php?id=" . $row['item_id'] . "'>";
-        echo "<img class='gridImage card-img-top' src='images/" . $row['item_image'] . "' alt='" . $row['item_name'] . "'>";
+      echo "<a href='crud/view.php?id=" . $itemID . "'>";
+        echo "<img class='gridImage card-img-top' src='images/" . $itemImage . "' alt='" . $itemName . "'>";
       echo "</a>";
       echo "<div class='card-body'>";
-        echo "<h5 class='card-title text-center'>" . $row['item_name'] . "</h5>";
+        echo "<h5 class='card-title text-center'>" . $itemName . "</h5>";
         // echo "<p class='card-text'>Some quick example text to build on the card title and make up the bulk of the cards content.</p>";
 
         // Is item active?

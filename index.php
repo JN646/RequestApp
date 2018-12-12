@@ -1,9 +1,6 @@
-<?php include 'partials/_header.php' ?>
+<?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_header.php");?>
 
-<?php
-// Start Session
-session_start();
-?>
+<?php session_start(); ?>
 
 <body>
 <div class="fluid-container">
@@ -72,4 +69,4 @@ session_start();
   </div>
 </div>
 </body>
-<?php include 'partials/_footer.php' ?>
+<?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_footer.php");?>
