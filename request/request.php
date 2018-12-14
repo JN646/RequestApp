@@ -7,23 +7,15 @@
   <br>
   <div class="col-md-12">
     <h2>Request Index</h2>
-    <ul class="nav">
-      <li class="nav-item">
-        <a class="nav-link" href='../crud/index.php'>CRUD</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href='../config/admin.php'>Admin</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href='request/request.php'>Request Home</a>
-      </li>
-    </ul>
+    <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_nav.php");?>
 
     <br>
 
     <?php
     // ACTIVE RESULTS
-    $activesql = "SELECT * FROM transaction_log";
+    $activesql = "SELECT * FROM transaction_log
+    INNER JOIN items ON transaction_log.trans_item_id=items.item_id
+    INNER JOIN types ON transaction_log.trans_type_id=types.type_id ORDER BY trans_time DESC";
     if ($result = mysqli_query($link, $activesql)) {
         if (mysqli_num_rows($result) > 0) {
             ?>
@@ -42,18 +34,19 @@
           while ($row = mysqli_fetch_array($result)) {
             $transID = $row['trans_id'];
             $transSession = $row['trans_session_id'];
-            $transItem = $row['trans_item_id'];
-            $transType = $row['trans_type_id'];
+            $transItem = $row['item_name'];
+            $transType = $row['type_name'];
+            $transTypeIcon = $row['type_icon'];
             $transTime = $row['trans_time'];
 
               // Draw Table.
               echo "<tbody>";
                 echo "<tr>";
                   echo "<td class='text-center'>" . $transID . "</td>";
-                  echo "<td>" . $transSession . "</td>";
+                  echo "<td class='text-center'>" . $transSession . "</td>";
                   echo "<td>" . $transItem . "</td>";
-                  echo "<td>" . $transType . "</td>";
-                  echo "<td>" . $transTime . "</td>";
+                  echo "<td>" . $transTypeIcon . " " . $transType . "</td>";
+                  echo "<td>" . date("H:m:s - m/d/Y", strtotime($transTime)) . "</td>";
                   echo "<td class='text-center'></td>";
                   echo "<td class='text-center'></td>";
                   echo "<td class='text-center'></td>";

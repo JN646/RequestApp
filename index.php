@@ -7,17 +7,8 @@
   <br>
   <div class="col-md-12">
     <h2>Home</h2>
-    <ul class="nav">
-      <li class="nav-item">
-        <a class="nav-link" href='crud/index.php'>CRUD</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href='config/admin.php'>Admin</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href='request/request.php'>Request Home</a>
-      </li>
-    </ul>
+
+    <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_nav.php");?>
 
     <br>
 

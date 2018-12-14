@@ -45,6 +45,7 @@ if (isset($_GET['edit'])) {
 
             <!-- Header -->
             <h1>Item Database</h1>
+            <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_nav.php");?>
             <p>This is the item management pane. Use this system to manage and remove items from the system.</p>
 
             <!-- Form -->
@@ -205,13 +206,14 @@ if (isset($_GET['edit'])) {
                     $itemID = $row['item_id'];
                     $itemName = $row['item_name'];
                     $itemType = $row['type_name'];
+                    $itemTypeIcon = $row['type_icon'];
 
                       // Draw Table.
                       echo "<tbody>";
                         echo "<tr>";
                           echo "<td class='text-center'>" . $itemID . "</td>";
                           echo "<td>" . $itemName . "</td>";
-                          echo "<td>" . $itemType . "</td>";
+                          echo "<td>" . $itemTypeIcon . " " . $itemType . "</td>";
                           echo "<td class='text-center'><a href='view.php?id=" . $itemID . "' class='view_btn'><i class='fas fa-eye'></i></a></td>";
                           echo "<td class='text-center'><a href='index.php?edit=" . $itemID . "' class='edit_btn'><i class='fas fa-edit'></i></a></td>";
                           echo "<td class='text-center'><a href='server.php?del=" . $itemID . "' class='del_btn'><i class='far fa-trash-alt'></i></a></td>";

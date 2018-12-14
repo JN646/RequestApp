@@ -12,15 +12,15 @@ $id = 0;
 
 // Add
 if (isset($_POST['save'])) {
-  $id = $_POST['id'];
-  $name = $_POST['name'];
-  $type = $_POST['type'];
-  $imagePath = $_POST['imagePath'];
+  $id = dataTidy($_POST['id']);
+  $name = dataTidy($_POST['name']);
+  $type = dataTidy($_POST['type']);
+  $imagePath = dataTidy($_POST['imagePath']);
   $notes = htmlspecialchars($_POST['notes'], ENT_QUOTES);
-  $active = $_POST['active'];
-  $field1 = $_POST['field1'];
-  $field2 = $_POST['field2'];
-  $field3 = $_POST['field3'];
+  $active = dataTidy($_POST['active']);
+  $field1 = dataTidy($_POST['field1']);
+  $field2 = dataTidy($_POST['field2']);
+  $field3 = dataTidy($_POST['field3']);
 
   $itemSQL = mysqli_query($link, "INSERT INTO items (
     `item_name`,
@@ -89,15 +89,15 @@ if (isset($_GET['request'])) {
 
 // Edit
 if (isset($_POST['update'])) {
-  $id = $_POST['id'];
-  $name = $_POST['name'];
-  $type = $_POST['type'];
-  $imagePath = $_POST['imagePath'];
+  $id = dataTidy($_POST['id']);
+  $name = dataTidy($_POST['name']);
+  $type = dataTidy($_POST['type']);
+  $imagePath = dataTidy($_POST['imagePath']);
   $notes = htmlspecialchars($_POST['notes'], ENT_QUOTES);
-  $active = $_POST['active'];
-  $field1 = $_POST['field1'];
-  $field2 = $_POST['field2'];
-  $field3 = $_POST['field3'];
+  $active = dataTidy($_POST['active']);
+  $field1 = dataTidy($_POST['field1']);
+  $field2 = dataTidy($_POST['field2']);
+  $field3 = dataTidy($_POST['field3']);
 
   $itemUpdateSQL = mysqli_query($link, "UPDATE items SET
     item_name='$name',
@@ -125,9 +125,7 @@ if (isset($_POST['update'])) {
 if (isset($_GET['del'])) {
 	$id = $_GET['del'];
 
-  $itemDelSQL = mysqli_query($link, "DELETE FROM items WHERE
-    item_id='$id'"
-  );
+  $itemDelSQL = mysqli_query($link, "DELETE FROM items WHERE item_id='$id'");
 
   if($itemDelSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Item Deleted</p>";
@@ -136,5 +134,12 @@ if (isset($_GET['del'])) {
     $_SESSION['message'] = mysqli_error($link);
     header('location: index.php');
   }
+}
+
+// Data Tidy
+function dataTidy($data) {
+  $tidyData = trim($data);
+
+  return $tidyData;
 }
 ?>
