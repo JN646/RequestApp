@@ -136,6 +136,86 @@ if (isset($_GET['del'])) {
   }
 }
 
+// Delivered
+if (isset($_GET['delivered'])) {
+  $id = $_GET['delivered'];
+
+  $itemUpdateSQL = mysqli_query($link, "UPDATE transaction_log SET
+    trans_delivered='1'
+    WHERE
+    trans_id='$id'"
+  );
+
+  if($itemUpdateSQL) {
+    $_SESSION['message'] = "<p class='alert alert-success'>Item Delivered</p>";
+    header('location: ../request/request.php');
+  } else {
+    $_SESSION['message'] = mysqli_error($link);
+    header('location: ../request/request.php');
+  }
+}
+
+// TYPE
+// Add
+if (isset($_POST['type_save'])) {
+  $id = dataTidy($_POST['id']);
+  $name = dataTidy($_POST['name']);
+  $icon = dataTidy($_POST['icon']);
+
+  $itemSQL = mysqli_query($link, "INSERT INTO types (
+    `type_name`,
+    `type_icon`
+  ) VALUES (
+    '$name',
+    '$icon',)"
+  );
+
+  if($itemSQL) {
+    $_SESSION['message'] = "<p class='alert alert-success'>Type Saved</p>";
+    header('location: index.php');
+  } else {
+    $_SESSION['message'] = mysqli_error($link);
+    header('location: index.php');
+  }
+}
+
+// Edit
+if (isset($_POST['type_update'])) {
+  $id = dataTidy($_POST['id']);
+  $name = dataTidy($_POST['name']);
+  $icon = dataTidy($_POST['icon']);
+
+  $itemUpdateSQL = mysqli_query($link, "UPDATE items SET
+    type_name='$name',
+    type_icon='$icon'
+    WHERE
+    type_id='$id'"
+  );
+
+  if($itemUpdateSQL) {
+    $_SESSION['message'] = "<p class='alert alert-success'>Type Updated</p>";
+    header('location: index.php');
+  } else {
+    $_SESSION['message'] = mysqli_error($link);
+    header('location: index.php');
+  }
+}
+
+// Delete
+if (isset($_GET['type_del'])) {
+	$id = $_GET['del'];
+
+  $itemDelSQL = mysqli_query($link, "DELETE FROM types WHERE type_id='$id'");
+
+  if($itemDelSQL) {
+    $_SESSION['message'] = "<p class='alert alert-success'>Type Deleted</p>";
+    header('location: index.php');
+  } else {
+    $_SESSION['message'] = mysqli_error($link);
+    header('location: index.php');
+  }
+}
+
 // Data Tidy
 function dataTidy($data) {
   $tidyData = trim($data);

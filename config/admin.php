@@ -12,6 +12,7 @@ session_start();
   <div class='col-md-12'>
     <!-- Header -->
     <h1>Admin</h1>
+    <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_nav.php");?>
     <p>Admin configuration page.</p>
 
     <?php
