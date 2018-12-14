@@ -6,26 +6,24 @@
     $id = $_GET["id"];
 
     // Get SQL
-    $activesql = "SELECT * FROM items WHERE item_id = $id";
+    $activesql = "SELECT * FROM items
+    INNER JOIN types ON items.item_type=types.type_id
+    INNER JOIN field_schema ON items.item_schema=field_schema.schema_id
+    WHERE item_id = $id";
     $result = mysqli_query($link, $activesql);
-    $microphone = mysqli_fetch_array($result);
+    $item = mysqli_fetch_array($result);
 
     // Map fields
-    $imagePath = $microphone['item_image'];
-    $name = $microphone['item_name'];
-    $itemSchema = $microphone['item_schema'];
-    $type = $microphone['item_type'];
-    $notes = $microphone['item_notes'];
-
-    // Field Mapping Schema
-    $schemasql = "SELECT * FROM field_schema WHERE schema_id = $itemSchema";
-    $schemeresult = mysqli_query($link, $schemasql);
-    $schema = mysqli_fetch_array($schemeresult);
+    $imagePath = $item['item_image'];
+    $name = $item['item_name'];
+    $itemSchema = $item['item_schema'];
+    $type = $item['type_name'];
+    $notes = $item['item_notes'];
 
     // Field Mapping
-    $fieldLabel1 = $schema['schema_f1'];
-    $fieldLabel2 = $schema['schema_f2'];
-    $fieldLabel3 = $schema['schema_f3'];
+    $fieldLabel1 = $item['schema_f1'];
+    $fieldLabel2 = $item['schema_f2'];
+    $fieldLabel3 = $item['schema_f3'];
 
     if ($itemSchema == '') {
       $fieldLabel1 = 'Field 1';
@@ -33,9 +31,9 @@
       $fieldLabel3 = 'Field 3';
     }
 
-    $field1 = $microphone['item_f1'];
-    $field2 = $microphone['item_f2'];
-    $field3 = $microphone['item_f3'];
+    $field1 = $item['item_f1'];
+    $field2 = $item['item_f2'];
+    $field3 = $item['item_f3'];
 
    ?>
 

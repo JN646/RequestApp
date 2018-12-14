@@ -36,7 +36,7 @@ if ($displayType == 1) {
 
       // Is item active?
       if ($row['item_active'] == 1) {
-        echo "<td class='align-middle text-center'><a href='#'><i class='fas fa-plus'></i></a></td>";
+        echo "<td class='align-middle text-center'><a href='crud/server.php?request=" . $row['item_id'] . "'><i class='fas fa-plus'></i></a></td>";
       } else {
         echo "<td></td>";
       }
@@ -71,7 +71,7 @@ if ($displayType == 2) {
 
         // Is item active?
         if ($row['item_active'] == 1) {
-          echo "<a href='#' class='btn btn-primary text-center'><i class='fas fa-plus'></i></a>";
+          echo "<a href='crud/server.php?request=" . $row['item_id'] . "' class='btn btn-primary text-center'><i class='fas fa-plus'></i></a>";
         } else {
           echo "";
         }

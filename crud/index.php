@@ -187,7 +187,7 @@ if (isset($_GET['edit'])) {
 
             <?php
             // ACTIVE RESULTS
-            $activesql = "SELECT * FROM items ORDER BY item_type, item_name ASC";
+            $activesql = "SELECT * FROM items INNER JOIN types ON items.item_type=types.type_id ORDER BY item_type, item_name ASC";
             if ($result = mysqli_query($link, $activesql)) {
                 if (mysqli_num_rows($result) > 0) {
                     ?>
@@ -204,7 +204,7 @@ if (isset($_GET['edit'])) {
                   while ($row = mysqli_fetch_array($result)) {
                     $itemID = $row['item_id'];
                     $itemName = $row['item_name'];
-                    $itemType = $row['item_type'];
+                    $itemType = $row['type_name'];
 
                       // Draw Table.
                       echo "<tbody>";
