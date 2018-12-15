@@ -3,7 +3,7 @@
 <?php session_start(); ?>
 
 <body>
-<div class="fluid-container">
+<div class="container">
   <br>
   <div class="col-md-12">
     <h2>Request Index</h2>
@@ -19,7 +19,7 @@
     if ($result = mysqli_query($link, $activesql)) {
         if (mysqli_num_rows($result) > 0) {
             ?>
-    <table id='resultTable' class='table table-bordered'>
+    <table id='resultTable' class='table table-sm table-bordered'>
       <thead class="thead-dark">
         <tr>
           <th class='text-center'>ID</th>

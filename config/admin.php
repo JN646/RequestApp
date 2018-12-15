@@ -7,7 +7,7 @@ session_start();
 ?>
 
 <!-- Container -->
-<div id='bodyContainer' class='fluid-container'>
+<div id='bodyContainer' class='container'>
   <br>
   <div class='col-md-12'>
     <!-- Header -->

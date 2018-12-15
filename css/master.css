@@ -11,3 +11,8 @@
 img.gridImage.card-img-top {
   object-fit: contain;
 }
+
+.cellNotActive {
+  background-color: whitesmoke;
+  color: grey;
+}

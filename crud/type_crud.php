@@ -24,7 +24,7 @@ if (isset($_GET['type_edit'])) {
 ?>
 
 <!-- Container -->
-  <div id='bodyContainer' class='fluid-container'>
+  <div id='bodyContainer' class='container'>
     <br>
     <div class='col-md-12'>
       <!-- Notification Block -->
@@ -92,7 +92,7 @@ if (isset($_GET['type_edit'])) {
             if ($result = mysqli_query($link, $activesql)) {
                 if (mysqli_num_rows($result) > 0) {
                     ?>
-            <table id='resultTable' class='table table-bordered'>
+            <table id='resultTable' class='table table-sm table-bordered'>
               <thead class="thead-dark">
                 <tr>
                   <th class='text-center'>ID</th>

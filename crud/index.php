@@ -30,7 +30,7 @@ if (isset($_GET['edit'])) {
 ?>
 
 <!-- Container -->
-  <div id='bodyContainer' class='fluid-container'>
+  <div id='bodyContainer' class='container'>
     <br>
     <div class='col-md-12'>
       <!-- Notification Block -->
@@ -192,8 +192,8 @@ if (isset($_GET['edit'])) {
             if ($result = mysqli_query($link, $activesql)) {
                 if (mysqli_num_rows($result) > 0) {
                     ?>
-            <table id='resultTable' class='table table-bordered'>
-              <thead class="thead-dark">
+            <table id='resultTable' class='table table-sm table-bordered'>
+              <thead class="thead-light">
                 <tr>
                   <th class='text-center'>ID</th>
                   <th class='text-center'>Item Name</th>
@@ -201,6 +201,7 @@ if (isset($_GET['edit'])) {
                   <th class='text-center' colspan="3">Action</th>
                 </tr>
               </thead>
+                <tbody>
               <?php
                   while ($row = mysqli_fetch_array($result)) {
                     $itemID = $row['item_id'];
@@ -208,9 +209,14 @@ if (isset($_GET['edit'])) {
                     $itemType = $row['type_name'];
                     $itemTypeIcon = $row['type_icon'];
 
+                    if ($row['item_active'] == 0) {
+                      $itemActiveFlag = "";
+                    } else {
+                      $itemActiveFlag = "table-active";
+                    }
+
                       // Draw Table.
-                      echo "<tbody>";
-                        echo "<tr>";
+                        echo "<tr class='" . $itemActiveFlag . "'>";
                           echo "<td class='text-center'>" . $itemID . "</td>";
                           echo "<td>" . $itemName . "</td>";
                           echo "<td>" . $itemTypeIcon . " " . $itemType . "</td>";
@@ -218,8 +224,8 @@ if (isset($_GET['edit'])) {
                           echo "<td class='text-center'><a href='index.php?edit=" . $itemID . "' class='edit_btn'><i class='fas fa-edit'></i></a></td>";
                           echo "<td class='text-center'><a href='server.php?del=" . $itemID . "' class='del_btn'><i class='far fa-trash-alt'></i></a></td>";
                         echo "</tr>";
-                      echo "</tbody>";
                   }
+                      echo "</tbody>";
                     echo "</table>";
 
                     // Free result set
