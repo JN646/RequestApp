@@ -12,7 +12,9 @@ $update = false;
 if (isset($_GET['type_edit'])) {
     $id = $_GET['type_edit'];
     $update = true;
-    $record = mysqli_query($link, "SELECT * FROM types WHERE type_id=$id");
+    $record = mysqli_query($link, "SELECT * FROM types
+      INNER JOIN types ON items.item_type=types.type_id
+      WHERE type_id=$id");
 
     if (count($record) == 1) {
         $n = mysqli_fetch_array($record);
@@ -98,6 +100,7 @@ if (isset($_GET['type_edit'])) {
                   <th class='text-center'>ID</th>
                   <th class='text-center'>Type Name</th>
                   <th class='text-center'>Type Icon</th>
+                  <th class='text-center'>Count</th>
                   <th class='text-center' colspan="2">Action</th>
                 </tr>
               </thead>
@@ -113,6 +116,7 @@ if (isset($_GET['type_edit'])) {
                           echo "<td class='text-center'>" . $typeID . "</td>";
                           echo "<td>" . $typeName . "</td>";
                           echo "<td class='text-center'>" . $typeIcon . "</td>";
+                          echo "<td class='text-center'>" . countThings($link, $typeName) . "</td>";
                           echo "<td class='text-center'><a href='type_crud.php?type_edit=" . $typeID . "' class='edit_btn'><i class='fas fa-edit'></i></a></td>";
                           echo "<td class='text-center'><a href='server.php?type_del=" . $typeID . "' class='del_btn'><i class='far fa-trash-alt'></i></a></td>";
                         echo "</tr>";

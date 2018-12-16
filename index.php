@@ -54,7 +54,7 @@
 
       // Generate options from database.
       while($row = mysqli_fetch_array($result)) {
-        echo "<option class='form-control' value='" . $row['type_id'] . "'>" . $row['type_name'] . "</option>";
+        echo "<option class='form-control' value='" . $row['type_id'] . "'>" . $row['type_name'] . " - (" . countThings($link, $row['type_name']) . ")" . "</option>";
       }
 
       // Close connection.

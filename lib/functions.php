@@ -25,4 +25,17 @@ class ApplicationVersion
 	// Usage: echo 'MyApplication ' . ApplicationVersion::get();
 }
 
+function countThings($link, $value)
+{
+  // Count Types
+  $query = "SELECT COUNT(*) FROM items
+  INNER JOIN types ON items.item_type=types.type_id
+  WHERE type_name = '$value'";
+
+  $result = mysqli_query($link, $query);
+  $rows = mysqli_fetch_row($result);
+
+  // Return Value.
+  return $rows[0];
+}
 ?>
