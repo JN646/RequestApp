@@ -28,3 +28,8 @@ img.gridImage.card-img-top {
 .debugNav a:hover {
   color: silver;
 }
+
+/* Footer */
+#footerVersionNumber {
+  font-size: 12px;
+}

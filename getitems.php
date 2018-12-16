@@ -26,17 +26,23 @@ if ($displayType == 1) {
       <th width='50px'>Request</th>
     </tr>";
   while($row = mysqli_fetch_array($result)) {
-    if ($row['item_image'] == '') {
-      $row['item_image'] = 'missing.jpg';
+    $itemImage = $row['item_image'];
+    $itemName = $row['item_name'];
+    $itemType = $row['item_type'];
+    $itemID = $row['item_id'];
+    $itemActive = $row['item_active'];
+
+    if ($itemImage == '') {
+      $itemImage = 'missing.jpg';
     }
     echo "<tr>";
-      echo "<td class='align-middle'><img class='listImage' src='images/" . $row['item_image'] . "' height='64px' width'64px'</td>";
-      echo "<td class='align-middle'>" . $row['item_name'] . "</td>";
-      echo "<td class='align-middle'>" . $row['item_type'] . "</td>";
+      echo "<td class='align-middle'><img class='listImage' src='images/" . $itemImage . "' height='64px' width'64px'</td>";
+      echo "<td class='align-middle'>" . $itemName . "</td>";
+      echo "<td class='align-middle'>" . $itemType . "</td>";
 
       // Is item active?
-      if ($row['item_active'] == 1) {
-        echo "<td class='align-middle text-center'><a href='crud/server.php?request=" . $row['item_id'] . "'><i class='fas fa-plus'></i></a></td>";
+      if ($itemActive == 1) {
+        echo "<td class='align-middle text-center'><a href='crud/server.php?request=" . $itemID . "'><i class='fas fa-plus'></i></a></td>";
       } else {
         echo "<td></td>";
       }

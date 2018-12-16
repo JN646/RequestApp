@@ -7,6 +7,9 @@
     <!-- DB File -->
     <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/config/db_config.php");?>
 
+    <!-- Functions -->
+    <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/lib/functions.php");?>
+
     <!-- CSS -->
     <?php
     // Darkmode Template

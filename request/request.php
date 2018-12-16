@@ -6,19 +6,33 @@
 <div class="container">
   <br>
   <div class="col-md-12">
+    <!-- Notification Block -->
+        <?php if (isset($_SESSION['message'])): ?>
+            <div class="msg">
+              <?php
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+              ?>
+            </div>
+          <?php endif ?>
+          
     <h2>Request Index</h2>
+
+    <!-- Debug Nav -->
     <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_nav.php");?>
 
     <br>
 
     <?php
-    // ACTIVE RESULTS
+    // SQL
     $activesql = "SELECT * FROM transaction_log
     INNER JOIN items ON transaction_log.trans_item_id=items.item_id
     INNER JOIN types ON transaction_log.trans_type_id=types.type_id ORDER BY trans_time DESC";
     if ($result = mysqli_query($link, $activesql)) {
         if (mysqli_num_rows($result) > 0) {
-            ?>
+    ?>
+
+    <!-- Results Table -->
     <table id='resultTable' class='table table-sm table-bordered'>
       <thead class="thead-dark">
         <tr>
@@ -33,6 +47,7 @@
       </thead>
       <?php
           while ($row = mysqli_fetch_array($result)) {
+            // Map Variables
             $transID = $row['trans_id'];
             $transSession = $row['trans_session_id'];
             $transItemID = $row['trans_id'];
@@ -50,9 +65,11 @@
                   // Display Session Information.
                   if ($transSession != '') {
                     // If Session <= 0.
-                    if ($transSession <= 0) {
+                    if ($transSession != 0) {
+                      // Show Session Value.
                       echo "<td class='text-center'>" . $transSession . "</td>";
                     } else {
+                      // Show Error Message.
                       echo "<td class='text-center'>Error</td>";
                     }
                   } else {
@@ -66,7 +83,7 @@
                   echo "<td class='text-center'>" . $transDelivered . "</td>";
 
                   // Hide Deliver Button.
-                  if ($transDelivered != 0 | $transDelivered != 1) {
+                  if ($transDelivered != 0 || $transDelivered != 1) {
                     if ($transDelivered == 0) {
                       // If item has not been delivered.
                       echo "<td class='text-center'><a href='../crud/server.php?delivered=" . $transItemID . "' class='view_btn'><i class='fas fa-truck'></i></a></td>";
@@ -75,9 +92,11 @@
                       echo "<td></td>";
                     }
                   } else {
+                    // Show Error Message
                     echo "<td>Error</td>";
                   }
 
+                  // Action Buttons
                   echo "<td class='text-center'></td>";
                   echo "<td class='text-center'></td>";
                 echo "</tr>";

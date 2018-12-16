@@ -6,7 +6,12 @@
 <div class="fluid-container">
   <br>
   <div class="col-md-12">
-    <h2>Home</h2>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">Request the things.</h1>
+        <p class="lead">System to request items.</p>
+      </div>
+    </div>
 
     <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_nav.php");?>
 
@@ -59,7 +64,7 @@
     </form>
     <br>
     <!-- Display results -->
-    <div id="txtHint"><b>Item info will be listed here...</b></div>
+    <div id="txtHint" class='text-center'><b>Item info will be listed here...</b></div>
   </div>
 </div>
 </body>
