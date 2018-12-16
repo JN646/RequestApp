@@ -57,6 +57,7 @@ if (isset($_GET['edit'])) {
                 <?php else: ?>
                   <h2>Add</h2>
                 <?php endif ?>
+
                 <form class='' method="post" action="server.php" >
                 	<input type="hidden" name="id" value="<?php echo $id; ?>">
 
@@ -162,36 +163,22 @@ if (isset($_GET['edit'])) {
                 			<button class="btn btn-success" type="submit" name="save">Add</button>
                 		<?php endif ?>
                 	</div>
-
-                  <script type="text/javascript">
-                    $(document).ready(function () {
-                      // Get active checkbox.
-                      var activeCheckbox = document.getElementById('activeCheckbox');
-
-                      // Set Active Checkbox Value
-                      if (<?php echo $active; ?> == 1) {
-                        // Check the box.
-                        activeCheckbox.checked = true;
-                      } else {
-                        // Uncheck the box.
-                        activeCheckbox.checked = false;
-                      }
-
-                      $('#typeSelect').val('<?php echo $type; ?>');
-                    });
-                  </script>
                 </form>
               </div>
             </div>
 
             <br>
 
+            <input class='form-control' id='searchTable' type="text" name="" placeholder='Search...' value="">
+
+            <br>
+
             <?php
-            // ACTIVE RESULTS
+            // SQL
             $activesql = "SELECT * FROM items INNER JOIN types ON items.item_type=types.type_id ORDER BY item_type, item_name ASC";
             if ($result = mysqli_query($link, $activesql)) {
                 if (mysqli_num_rows($result) > 0) {
-                    ?>
+            ?>
             <table id='resultTable' class='table table-sm table-bordered'>
               <thead class="thead-light">
                 <tr>
@@ -209,10 +196,11 @@ if (isset($_GET['edit'])) {
                     $itemType = $row['type_name'];
                     $itemTypeIcon = $row['type_icon'];
 
+                    // Set the active table row class.
                     if ($row['item_active'] == 0) {
-                      $itemActiveFlag = "";
-                    } else {
                       $itemActiveFlag = "table-active";
+                    } else {
+                      $itemActiveFlag = "";
                     }
 
                       // Draw Table.
@@ -236,7 +224,54 @@ if (isset($_GET['edit'])) {
             } else {
                 SQLError($link);
             } ?>
-            <p><a href='../index.php'>Back</a></p>
+
+            <script>
+            // Search Table JQuery
+            $(document).ready(function(){
+              // Get active checkbox.
+              var activeCheckbox = document.getElementById('activeCheckbox');
+
+              // Set Active Checkbox Value
+              if (<?php echo $active; ?> == 1) {
+                // Check the box.
+                activeCheckbox.checked = true;
+              } else {
+                // Uncheck the box.
+                activeCheckbox.checked = false;
+              }
+
+              // Set the type value box.
+              $('#typeSelect').val('<?php echo $type; ?>');
+
+              // Filter Search
+              $("#searchTable").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#resultTable tr").filter(function() {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+              });
+            });
+
+            // Accordian System
+            var acc = document.getElementsByClassName("accordion");
+            var i;
+
+            for (i = 0; i < acc.length; i++) {
+              acc[i].addEventListener("click", function() {
+                /* Toggle between adding and removing the "active" class,
+                to highlight the button that controls the panel */
+                this.classList.toggle("active");
+
+                /* Toggle between hiding and showing the active panel */
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                  panel.style.display = "none";
+                } else {
+                  panel.style.display = "block";
+                }
+              });
+            }
+            </script>
           </div>
     </div>
     <?php include '../partials/_footer.php'; ?>

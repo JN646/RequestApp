@@ -16,3 +16,15 @@ img.gridImage.card-img-top {
   background-color: whitesmoke;
   color: grey;
 }
+
+.navbar.bg-primary {
+  border: 0;
+}
+
+.debugNav a {
+  color: white;
+}
+
+.debugNav a:hover {
+  color: silver;
+}

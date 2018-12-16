@@ -18,4 +18,7 @@ if ($link->connect_error) {
 define("LOCAL", "http://localhost/RequestApp/"); //local URL
 define("WEB", "http://192.168.1.72:80/RequestApp/"); //website URL
 $environment = LOCAL; //change to WEB if you're live
+
+// Switches
+$darkMode = 0;
 ?>
