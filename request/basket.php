@@ -30,6 +30,31 @@
     $activesql = "SELECT * FROM transaction_log
     INNER JOIN items ON transaction_log.trans_item_id=items.item_id
     INNER JOIN types ON transaction_log.trans_type_id=types.type_id WHERE trans_session_id = '$sessionID' ORDER BY item_type, item_name DESC";
+
+    // Count Totals
+    function countPriceTotals($link, $sessionID) {
+      // SQL
+      $activesql = "SELECT SUM(item_price) FROM transaction_log
+      INNER JOIN items ON transaction_log.trans_item_id=items.item_id
+      WHERE trans_session_id = '$sessionID'";
+
+      $result = mysqli_query($link, $activesql);
+      $row = mysqli_fetch_array($result);
+
+      return $row[0];
+    }
+
+    // Calculate VAT
+    function calVAT($priceTotal, $VAT) {
+      $vatPrice = $priceTotal * $VAT;
+
+      return $vatPrice;
+    }
+
+    $priceTotal = countPriceTotals($link, $sessionID);
+    $vatPrice = calVAT($priceTotal, $VAT);
+
+    // Run
     if ($result = mysqli_query($link, $activesql)) {
         if (mysqli_num_rows($result) > 0) {
     ?>
@@ -43,7 +68,7 @@
           <th class='text-center'>ID</th>
           <th class='text-center'>Item</th>
           <th class='text-center'>Type</th>
-          <th class='text-center'>Time</th>
+          <th class='text-center' colspan='2'>Time</th>
           <th class='text-center'>Delivered</th>
           <th class='text-center'>Price</th>
         </tr>
@@ -67,7 +92,8 @@
                   echo "<td class='text-center'>" . $transID . "</td>";
                   echo "<td>" . $transItem . "</td>";
                   echo "<td>" . $transTypeIcon . " " . $transType . "</td>";
-                  echo "<td>" . date("H:m:s - d/m/Y", strtotime($transTime)) . "</td>";
+                  echo "<td>" . date("d/m/Y", strtotime($transTime)) . "</td>";
+                  echo "<td>" . date("H:m:s", strtotime($transTime)) . "</td>";
 
                   if ($transDelivered == 1) {
                     echo "<td class='text-center'>" . $transDelivered . "</td>";
@@ -80,6 +106,41 @@
                 echo "</tr>";
               echo "</tbody>";
           }
+              // Table Footer
+              echo "<tfooter>";
+                // Sub Total
+                echo "<tr>";
+                  echo "<td></td>";
+                  echo "<td></td>";
+                  echo "<td></td>";
+                  echo "<td></td>";
+                  echo "<td></td>";
+                  echo "<td class='text-center'><strong>Sub Total:</strong></td>";
+                  echo "<td class='text-center'>£" . ($priceTotal - $vatPrice) . "</td>";
+                echo "</tr>";
+
+                // VAT
+                echo "<tr>";
+                  echo "<td></td>";
+                  echo "<td></td>";
+                  echo "<td></td>";
+                  echo "<td></td>";
+                  echo "<td></td>";
+                  echo "<td class='text-center'><strong>VAT:</strong></td>";
+                  echo "<td class='text-center'>£" . $vatPrice . "</td>";
+                echo "</tr>";
+
+                // Total
+                echo "<tr>";
+                  echo "<td></td>";
+                  echo "<td></td>";
+                  echo "<td></td>";
+                  echo "<td></td>";
+                  echo "<td></td>";
+                  echo "<td class='text-center'><strong>Total:</strong></td>";
+                  echo "<td class='text-center'>£" . $priceTotal . "</td>";
+                echo "</tr>";
+              echo "</tfooter>";
             echo "</table>";
 
             // Free result set

@@ -21,4 +21,5 @@ $environment = LOCAL; //change to WEB if you're live
 
 // Switches
 $darkMode = 0;
+$VAT = 0.20;
 ?>
