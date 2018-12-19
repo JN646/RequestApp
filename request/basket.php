@@ -60,6 +60,11 @@
     ?>
 
     <h2>Session <?php echo $sessionID ?></h2>
+    <p>
+      <span>Table: </span> - <span>Value</span>
+      <br>
+      <span>Start Time: </span> - <span>Value</span>
+    </p>
 
     <!-- Results Table -->
     <table id='resultTable' class='table table-sm table-bordered'>
@@ -96,12 +101,11 @@
                   echo "<td>" . date("H:m:s", strtotime($transTime)) . "</td>";
 
                   if ($transDelivered == 1) {
-                    echo "<td class='text-center'>" . $transDelivered . "</td>";
+                    echo "<td class='text-center'><i class='fas fa-check'></i></td>";
                   } else if ($transDelivered == 0) {
                     echo "<td class='text-center'><a href='#'>Edit</a></td>";
                   }
 
-                  // Action Buttons
                   echo "<td class='text-center'>£" . $itemPrice . "</td>";
                 echo "</tr>";
               echo "</tbody>";
@@ -151,6 +155,12 @@
     } else {
         SQLError($link);
     } ?>
+
+    <h3>Finished Ordering?</h3>
+    <p>If you have finished your session, press the button below to request your bill.</p>
+    <form class="" action="#" method="post">
+      <button class='btn btn-primary' type="submit" name="closeSession">Close Session</button>
+    </form>
 
   </div>
 </div>
