@@ -21,11 +21,11 @@ img.gridImage.card-img-top {
   border: 0;
 }
 
-.debugNav a {
+a.nav-link {
   color: white;
 }
 
-.debugNav a:hover {
+a.nav-link:hover {
   color: silver;
 }
 
