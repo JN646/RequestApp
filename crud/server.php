@@ -16,6 +16,8 @@ if (isset($_POST['save'])) {
   $name = dataTidy($_POST['name']);
   $type = dataTidy($_POST['type']);
   $imagePath = dataTidy($_POST['imagePath']);
+  $price = dataTidy($_POST['price']);
+  $schema = dataTidy($_POST['schema']);
   $notes = htmlspecialchars($_POST['notes'], ENT_QUOTES);
   $active = dataTidy($_POST['active']);
   $field1 = dataTidy($_POST['field1']);
@@ -27,6 +29,8 @@ if (isset($_POST['save'])) {
     `item_type`,
     `item_image`,
     `item_active`,
+    `item_price`,
+    `item_schema`,
     `item_notes`,
     `item_f1`,
     `item_f2`,
@@ -36,6 +40,8 @@ if (isset($_POST['save'])) {
     '$type',
     '$imagePath',
     '$active',
+    '$price',
+    '$schema',
     '$notes',
     '$field1',
     '$field2',
@@ -93,6 +99,8 @@ if (isset($_POST['update'])) {
   $name = dataTidy($_POST['name']);
   $type = dataTidy($_POST['type']);
   $imagePath = dataTidy($_POST['imagePath']);
+  $price = dataTidy($_POST['price']);
+  $schema = dataTidy($_POST['schema']);
   $notes = htmlspecialchars($_POST['notes'], ENT_QUOTES);
   $active = dataTidy($_POST['active']);
   $field1 = dataTidy($_POST['field1']);
@@ -105,6 +113,8 @@ if (isset($_POST['update'])) {
     item_image='$imagePath',
     item_active='$active',
     item_notes='$notes',
+    item_price='$price',
+    item_schema='$schema',
     item_f1='$field1',
     item_f2='$field2',
     item_f3='$field3'

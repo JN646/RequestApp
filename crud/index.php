@@ -6,7 +6,8 @@
 session_start();
 
 // initialise variables
-$name = $type = $imagePath = $active = "";
+$name = $type = $imagePath = $active = '';
+$price = '0.00';
 $update = false;
 
 if (isset($_GET['edit'])) {
@@ -19,9 +20,11 @@ if (isset($_GET['edit'])) {
         $id = $n['item_id'];
         $name = $n['item_name'];
         $type = $n['item_type'];
+        $schema = $n['item_schema'];
         $notes = $n['item_notes'];
         $imagePath = $n['item_image'];
         $active = $n['item_active'];
+        $price = $n['item_price'];
         $field1 = $n['item_f1'];
         $field2 = $n['item_f2'];
         $field3 = $n['item_f3'];
@@ -61,7 +64,9 @@ if (isset($_GET['edit'])) {
                 <form class='' method="post" action="server.php" >
                 	<input type="hidden" name="id" value="<?php echo $id; ?>">
 
+                <!-- First Row -->
                 <div class='form-row'>
+                  <legend>Primary Details</legend>
                   <!-- Name -->
                   <div class='col'>
                     <div class="form-group">
@@ -105,6 +110,14 @@ if (isset($_GET['edit'])) {
                     </div>
                   </div>
 
+                  <!-- Price -->
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="price">Price</label>
+                      <input class='form-control' type="text" name="price" placeholder="Price" value="<?php echo $price; ?>">
+                    </div>
+                  </div>
+
                   <!-- Item Active-->
                   <div class='col'>
                     <div class="form-group">
@@ -117,6 +130,31 @@ if (isset($_GET['edit'])) {
 
                 <!-- Second Row -->
                 <div class="form-row">
+                  <legend>Fields</legend>
+
+                  <!-- Schema -->
+                  <div class='col'>
+                    <div class="form-group">
+                      <label class="">Field Schema</label><br>
+                      <?php
+                      // Type Drowndown Menu
+                      $schemaResult = mysqli_query($link,"SELECT * FROM field_schema ORDER BY schema_name ASC");
+
+                      // Generate Select box with AJAX link.
+                      echo "<select id='schemaSelect' class='form-control' name='schema'>";
+
+                        // Default option.
+                        echo "<option class='form-control' value='0'>Please select...</option>";
+
+                        // Generate options from database.
+                        while($row = mysqli_fetch_array($schemaResult)) {
+                          echo "<option class='form-control' value='" . $row['schema_id'] . "'>" . $row['schema_name'] . "</option>";
+                        }
+
+                        echo "</select>";
+                        ?>
+                    </div>
+                  </div>
 
                   <!-- Field 1 -->
                   <div class="col">
@@ -242,6 +280,7 @@ if (isset($_GET['edit'])) {
 
               // Set the type value box.
               $('#typeSelect').val('<?php echo $type; ?>');
+              $('#schemaSelect').val('<?php echo $schema; ?>');
 
               // Filter Search
               $("#searchTable").on("keyup", function() {
