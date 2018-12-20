@@ -33,6 +33,14 @@ a.nav-link:hover {
   color: silver;
 }
 
+.text-red {
+  color: red;
+}
+
+.text-green {
+  color: green;
+}
+
 /* Footer */
 #footerVersionNumber {
   font-size: 12px;

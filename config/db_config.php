@@ -20,6 +20,8 @@ define("WEB", "http://192.168.1.72:80/RequestApp/"); //website URL
 $environment = LOCAL; //change to WEB if you're live
 
 // Switches
+$sessionID = 1;
 $darkMode = 0;
 $VAT = 0.20;
+$currencySymb = "£";
 ?>

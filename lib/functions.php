@@ -46,16 +46,29 @@ function countPriceTotals($link, $sessionID) {
 	INNER JOIN items ON transaction_log.trans_item_id=items.item_id
 	WHERE trans_session_id = '$sessionID'";
 
+	// Run Query.
 	$result = mysqli_query($link, $activesql);
 	$row = mysqli_fetch_array($result);
 
+	// Return counted total.
 	return $row[0];
 }
 
 // Calculate VAT
 function calVAT($priceTotal, $VAT) {
+	// Check that the VAT value is something we care about.
+	if ($VAT != '') {
+		if ($VAT < 0.00) {
+			$VAT = 0.20;
+		}
+	} else {
+		$VAT = 0.20;
+	}
+
+	// Generate VAT Price
 	$vatPrice = $priceTotal * $VAT;
 
+	// Return Price
 	return $vatPrice;
 }
 ?>

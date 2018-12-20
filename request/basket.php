@@ -1,5 +1,7 @@
+<!-- Load Header -->
 <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_header.php");?>
 
+<!-- Start the session -->
 <?php session_start(); ?>
 
 <body>
@@ -24,7 +26,6 @@
     <br>
 
     <?php
-    $sessionID = 1;
 
     // SQL
     $activesql = "SELECT * FROM transaction_log
@@ -83,16 +84,22 @@
                   echo "<td>" . date("d/m/Y", strtotime($transTime)) . "</td>";
                   echo "<td>" . date("H:m:s", strtotime($transTime)) . "</td>";
 
-                  if ($transDelivered == 1) {
-                    echo "<td class='text-center'><i class='fas fa-check'></i></td>";
-                  } else if ($transDelivered == 0) {
-                    echo "<td class='text-center'><a href='#'>Edit</a></td>";
+                  // Item been delivered?
+                  if ($transDelivered != 0 || $transDelivered != 1) {
+                    if ($transDelivered == 1) {
+                      echo "<td class='text-center text-green'><i class='fas fa-check'></i></td>";
+                    } else if ($transDelivered == 0) {
+                      echo "<td class='text-center'><a href='#'>Edit</a></td>";
+                    }
+                  } else {
+                    echo "<td class='text-center text-red'>Error</td>";
                   }
 
+                  // Price negative numbers.
                   if ($itemPrice < 0.00) {
-                    echo "<td class='text-center' style='color: red;'>£" . $itemPrice . "</td>";
+                    echo "<td class='text-center text-red'>" . $currencySymb . $itemPrice . "</td>";
                   } else {
-                    echo "<td class='text-center'>£" . $itemPrice . "</td>";
+                    echo "<td class='text-center'>" . $currencySymb . $itemPrice . "</td>";
                   }
 
                 echo "</tr>";
@@ -108,7 +115,7 @@
                   echo "<td></td>";
                   echo "<td></td>";
                   echo "<td class='text-center'><strong>Sub Total:</strong></td>";
-                  echo "<td class='text-center'>£" . ($priceTotal - $vatPrice) . "</td>";
+                  echo "<td class='text-center'>" . $currencySymb . ($priceTotal - $vatPrice) . "</td>";
                 echo "</tr>";
 
                 // VAT
@@ -119,7 +126,7 @@
                   echo "<td></td>";
                   echo "<td></td>";
                   echo "<td class='text-center'><strong>VAT:</strong></td>";
-                  echo "<td class='text-center'>£" . $vatPrice . "</td>";
+                  echo "<td class='text-center'>" . $currencySymb . $vatPrice . "</td>";
                 echo "</tr>";
 
                 // Total
@@ -130,7 +137,7 @@
                   echo "<td></td>";
                   echo "<td></td>";
                   echo "<td class='text-center'><strong>Total:</strong></td>";
-                  echo "<td class='text-center'>£" . $priceTotal . "</td>";
+                  echo "<td class='text-center'>" . $currencySymb . $priceTotal . "</td>";
                 echo "</tr>";
               echo "</tfooter>";
             echo "</table>";

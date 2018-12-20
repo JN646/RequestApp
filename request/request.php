@@ -1,5 +1,7 @@
+<!-- Load Header -->
 <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_header.php");?>
 
+<!-- Start the session -->
 <?php session_start(); ?>
 
 <body>
@@ -7,15 +9,15 @@
   <br>
   <div class="col-md-12">
     <!-- Notification Block -->
-        <?php if (isset($_SESSION['message'])): ?>
-            <div class="msg">
-              <?php
-                echo $_SESSION['message'];
-                unset($_SESSION['message']);
-              ?>
-            </div>
-          <?php endif ?>
-          
+    <?php if (isset($_SESSION['message'])): ?>
+        <div class="msg">
+          <?php
+            echo $_SESSION['message'];
+            unset($_SESSION['message']);
+          ?>
+        </div>
+      <?php endif ?>
+
     <h2>Request Index</h2>
 
     <!-- Debug Nav -->
@@ -27,7 +29,10 @@
     // SQL
     $activesql = "SELECT * FROM transaction_log
     INNER JOIN items ON transaction_log.trans_item_id=items.item_id
-    INNER JOIN types ON transaction_log.trans_type_id=types.type_id ORDER BY trans_time DESC";
+    INNER JOIN types ON transaction_log.trans_type_id=types.type_id
+    ORDER BY trans_time DESC";
+
+
     if ($result = mysqli_query($link, $activesql)) {
         if (mysqli_num_rows($result) > 0) {
     ?>
@@ -93,7 +98,7 @@
                     }
                   } else {
                     // Show Error Message
-                    echo "<td>Error</td>";
+                    echo "<td class='text-red'>Error</td>";
                   }
 
                   // Action Buttons
@@ -110,9 +115,8 @@
             echo "<p class='alert alert-info'>No items were found.</p>";
         }
     } else {
-        SQLError($link);
+        echo "<p class='alert alert-danger'>ERROR: " . SQLError($link) . "</p>";
     } ?>
-
   </div>
 </div>
 </body>
