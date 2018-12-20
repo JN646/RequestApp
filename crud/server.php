@@ -177,15 +177,15 @@ if (isset($_POST['type_save'])) {
     `type_icon`
   ) VALUES (
     '$name',
-    '$icon',)"
+    '$icon')"
   );
 
   if($itemSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Type Saved</p>";
-    header('location: index.php');
+    header('location: type_crud.php');
   } else {
-    $_SESSION['message'] = mysqli_error($link);
-    header('location: index.php');
+    $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
+    header('location: type_crud.php');
   }
 }
 
@@ -195,7 +195,7 @@ if (isset($_POST['type_update'])) {
   $name = dataTidy($_POST['name']);
   $icon = dataTidy($_POST['icon']);
 
-  $itemUpdateSQL = mysqli_query($link, "UPDATE items SET
+  $itemUpdateSQL = mysqli_query($link, "UPDATE types SET
     type_name='$name',
     type_icon='$icon'
     WHERE
@@ -204,25 +204,25 @@ if (isset($_POST['type_update'])) {
 
   if($itemUpdateSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Type Updated</p>";
-    header('location: index.php');
+    header('location: type_crud.php');
   } else {
-    $_SESSION['message'] = mysqli_error($link);
-    header('location: index.php');
+    $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
+    header('location: type_crud.php');
   }
 }
 
 // Delete
 if (isset($_GET['type_del'])) {
-	$id = $_GET['del'];
+	$id = $_GET['type_del'];
 
   $itemDelSQL = mysqli_query($link, "DELETE FROM types WHERE type_id='$id'");
 
   if($itemDelSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Type Deleted</p>";
-    header('location: index.php');
+    header('location: type_crud.php');
   } else {
-    $_SESSION['message'] = mysqli_error($link);
-    header('location: index.php');
+    $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
+    header('location: type_crud.php');
   }
 }
 

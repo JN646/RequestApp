@@ -6,14 +6,13 @@
 session_start();
 
 // initialise variables
-$name = $type = $imagePath = $active = "";
+$name = $icon = "";
 $update = false;
 
 if (isset($_GET['type_edit'])) {
     $id = $_GET['type_edit'];
     $update = true;
     $record = mysqli_query($link, "SELECT * FROM types
-      INNER JOIN types ON items.item_type=types.type_id
       WHERE type_id=$id");
 
     if (count($record) == 1) {
@@ -47,39 +46,44 @@ if (isset($_GET['type_edit'])) {
             <!-- Form -->
             <div class='border border-primary'>
               <div class='col-md-12'>
-              <!-- Control Form -->
+                <button id='showHide' type="button" class="close" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+
+                <!-- Control Form -->
                 <?php if ($update == true): ?>
                   <h2>Update</h2>
                 <?php else: ?>
                   <h2>Add</h2>
                 <?php endif ?>
-                <form class='' method="post" action="server.php" >
+                
+                <form id='addUpdateForm' class='' method="post" action="server.php" >
                 	<input type="hidden" name="id" value="<?php echo $id; ?>">
 
-                <div class='form-row'>
-                  <!-- Name -->
-                  <div class='col'>
-                    <div class="form-group">
-                      <label class="">Name</label><br>
-                      <input class='form-control' type="text" name="name" placeholder="Type Name" value="<?php echo $name; ?>">
+                  <div class='form-row'>
+                    <!-- Name -->
+                    <div class='col'>
+                      <div class="form-group">
+                        <label class="">Name</label><br>
+                        <input class='form-control' type="text" name="name" placeholder="Type Name" value="<?php echo $name; ?>">
+                      </div>
                     </div>
-                  </div>
 
-                  <!-- Icon -->
-                  <div class='col'>
-                    <div class="form-group">
-                      <label class="">Icon</label><br>
-                      <input class='form-control' type="text" name="icon" placeholder="Icon HTML" value="<?php echo htmlspecialchars($icon); ?>">
+                    <!-- Icon -->
+                    <div class='col'>
+                      <div class="form-group">
+                        <label class="">Icon</label><br>
+                        <input class='form-control' type="text" name="icon" placeholder="Icon HTML" value="<?php echo htmlspecialchars($icon); ?>">
+                      </div>
                     </div>
                   </div>
-                </div>
 
                   <!-- Submit Buttons -->
                 	<div class="form-group">
                 		<?php if ($update == true): ?>
-                			<button class="btn btn-primary" type="submit" name="update">Update</button>
+                			<button class="btn btn-primary" type="submit" name="type_update">Update</button>
                 		<?php else: ?>
-                			<button class="btn btn-success" type="submit" name="save">Add</button>
+                			<button class="btn btn-success" type="submit" name="type_save">Add</button>
                 		<?php endif ?>
                 	</div>
                 </form>
@@ -130,9 +134,18 @@ if (isset($_GET['type_edit'])) {
                     echo "<p class='alert alert-info'>No items were found.</p>";
                 }
             } else {
-                SQLError($link);
+                echo "<p class='alert alert-info'>" . SQLError($link) . "</p>";
             } ?>
-            <p><a href='../index.php'>Back</a></p>
+            <script type="text/javascript">
+            // Hide form by default.
+            $("#addUpdateForm").hide();
+
+            // Toggle Update Form.
+            $("#showHide").click(function(){
+              console.log('Pressed.');
+              $("#addUpdateForm").toggle();
+            });
+            </script>
           </div>
     </div>
     <?php include '../partials/_footer.php'; ?>

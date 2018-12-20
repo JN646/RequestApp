@@ -269,7 +269,7 @@ if (isset($_GET['edit'])) {
                     echo "<p class='alert alert-info'>No items were found.</p>";
                 }
             } else {
-                SQLError($link);
+                echo "<p class='alert alert-info'>" . SQLError($link) . "</p>";
             } ?>
 
             <script>
