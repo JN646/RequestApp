@@ -6,7 +6,8 @@
 session_start();
 
 // initialise variables
-$name = $type = $imagePath = $active = '';
+$name = $type = $imagePath = '';
+$active = 0;
 $price = '0.00';
 $update = false;
 
@@ -54,6 +55,10 @@ if (isset($_GET['edit'])) {
             <!-- Form -->
             <div class='border border-primary'>
               <div class='col-md-12'>
+                <button id='showHide' type="button" class="close" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+
               <!-- Control Form -->
                 <?php if ($update == true): ?>
                   <h2>Update</h2>
@@ -61,7 +66,7 @@ if (isset($_GET['edit'])) {
                   <h2>Add</h2>
                 <?php endif ?>
 
-                <form class='' method="post" action="server.php" >
+                <form id='addUpdateForm' class='' method="post" action="server.php" >
                 	<input type="hidden" name="id" value="<?php echo $id; ?>">
 
                 <!-- First Row -->
@@ -286,6 +291,15 @@ if (isset($_GET['edit'])) {
               $('#typeSelect').val('<?php echo $type; ?>');
               $('#schemaSelect').val('<?php echo $schema; ?>');
 
+              // Hide form by default.
+              $("#addUpdateForm").hide();
+
+              // Toggle Update Form.
+              $("#showHide").click(function(){
+                console.log('Pressed.');
+                $("#addUpdateForm").toggle();
+              });
+
               // Filter Search
               $("#searchTable").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
@@ -297,4 +311,4 @@ if (isset($_GET['edit'])) {
             </script>
           </div>
     </div>
-    <?php include '../partials/_footer.php'; ?>
+    <?php include_once '../partials/_footer.php'; ?>

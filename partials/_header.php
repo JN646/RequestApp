@@ -4,23 +4,35 @@
     <meta charset="utf-8">
     <title>Request Application</title>
 
-    <!-- DB File -->
-    <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/config/db_config.php");?>
+    <?php
+    // DB Config
+    if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/config/db_config.php")) {
+      require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/config/db_config.php");
+    } else {
+      die('FATAL: Config file is missing.');
+    }
 
-    <!-- Functions -->
-    <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/lib/functions.php");?>
+    // Function File
+    if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/lib/functions.php")) {
+      require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/lib/functions.php");;
+    } else {
+      die('FATAL: Functions file is missing.');
+    }
+    ?>
 
     <!-- CSS -->
     <?php
     // Darkmode Template
-    if ($darkMode == 0 || $darkMode == 1) {
-      if ($darkMode == 1) {
-        echo "<link rel='stylesheet' href='" . $environment . "css/darkmode.min.css'>";
+    if (true) {
+      if ($darkMode == 0 || $darkMode == 1) {
+        if ($darkMode == 1) {
+          echo "<link rel='stylesheet' href='" . $environment . "css/darkmode.min.css'>";
+        } else {
+          echo "<link rel='stylesheet' href='" . $environment . "css/lightmode.css'>";
+        }
       } else {
-        echo "<link rel='stylesheet' href='" . $environment . "css/lightmode.css'>";
+        die('FATAL: Incorrect Theme Value');
       }
-    } else {
-      die('FATAL: Incorrect Theme Value');
     }
     ?>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">

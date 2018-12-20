@@ -79,7 +79,7 @@
               echo "<tbody>";
                 echo "<tr>";
                   echo "<td class='text-center'>" . $transID . "</td>";
-                  echo "<td>" . $transItem . "</td>";
+                  echo "<td><a href=''>" . $transItem . "</a></td>";
                   echo "<td>" . $transTypeIcon . " " . $transType . "</td>";
                   echo "<td>" . date("d/m/Y", strtotime($transTime)) . "</td>";
                   echo "<td>" . date("H:m:s", strtotime($transTime)) . "</td>";
