@@ -38,4 +38,24 @@ function countThings($link, $value)
   // Return Value.
   return $rows[0];
 }
+
+// Count Totals
+function countPriceTotals($link, $sessionID) {
+	// SQL
+	$activesql = "SELECT SUM(item_price) FROM transaction_log
+	INNER JOIN items ON transaction_log.trans_item_id=items.item_id
+	WHERE trans_session_id = '$sessionID'";
+
+	$result = mysqli_query($link, $activesql);
+	$row = mysqli_fetch_array($result);
+
+	return $row[0];
+}
+
+// Calculate VAT
+function calVAT($priceTotal, $VAT) {
+	$vatPrice = $priceTotal * $VAT;
+
+	return $vatPrice;
+}
 ?>

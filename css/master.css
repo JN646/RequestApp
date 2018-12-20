@@ -12,6 +12,10 @@ img.gridImage.card-img-top {
   object-fit: contain;
 }
 
+.gridCard.card.col-md-2 {
+  border-radius: 0px;
+}
+
 .cellNotActive {
   background-color: whitesmoke;
   color: grey;

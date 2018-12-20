@@ -29,28 +29,11 @@
     // SQL
     $activesql = "SELECT * FROM transaction_log
     INNER JOIN items ON transaction_log.trans_item_id=items.item_id
-    INNER JOIN types ON transaction_log.trans_type_id=types.type_id WHERE trans_session_id = '$sessionID' ORDER BY item_type, item_name DESC";
+    INNER JOIN types ON transaction_log.trans_type_id=types.type_id
+    WHERE trans_session_id = '$sessionID'
+    ORDER BY item_type, item_name DESC";
 
-    // Count Totals
-    function countPriceTotals($link, $sessionID) {
-      // SQL
-      $activesql = "SELECT SUM(item_price) FROM transaction_log
-      INNER JOIN items ON transaction_log.trans_item_id=items.item_id
-      WHERE trans_session_id = '$sessionID'";
-
-      $result = mysqli_query($link, $activesql);
-      $row = mysqli_fetch_array($result);
-
-      return $row[0];
-    }
-
-    // Calculate VAT
-    function calVAT($priceTotal, $VAT) {
-      $vatPrice = $priceTotal * $VAT;
-
-      return $vatPrice;
-    }
-
+    // Get Prices
     $priceTotal = countPriceTotals($link, $sessionID);
     $vatPrice = calVAT($priceTotal, $VAT);
 
@@ -106,7 +89,12 @@
                     echo "<td class='text-center'><a href='#'>Edit</a></td>";
                   }
 
-                  echo "<td class='text-center'>£" . $itemPrice . "</td>";
+                  if ($itemPrice < 0.00) {
+                    echo "<td class='text-center' style='color: red;'>£" . $itemPrice . "</td>";
+                  } else {
+                    echo "<td class='text-center'>£" . $itemPrice . "</td>";
+                  }
+
                 echo "</tr>";
               echo "</tbody>";
           }
