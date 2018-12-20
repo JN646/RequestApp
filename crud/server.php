@@ -226,6 +226,67 @@ if (isset($_GET['type_del'])) {
   }
 }
 
+// LOCATIONS
+// Add
+if (isset($_POST['location_save'])) {
+  $id = dataTidy($_POST['id']);
+  $name = dataTidy($_POST['name']);
+  $description = dataTidy($_POST['description']);
+
+  $itemSQL = mysqli_query($link, "INSERT INTO locations (
+    `location_name`,
+    `location_description`
+  ) VALUES (
+    '$name',
+    '$description')"
+  );
+
+  if($itemSQL) {
+    $_SESSION['message'] = "<p class='alert alert-success'>Location Saved</p>";
+    header('location: location_crud.php');
+  } else {
+    $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
+    header('location: location_crud.php');
+  }
+}
+
+// Edit
+if (isset($_POST['location_update'])) {
+  $id = dataTidy($_POST['id']);
+  $name = dataTidy($_POST['name']);
+  $description = dataTidy($_POST['description']);
+
+  $itemUpdateSQL = mysqli_query($link, "UPDATE locations SET
+    location_name='$name',
+    location_icon='$description'
+    WHERE
+    location_id='$id'"
+  );
+
+  if($itemUpdateSQL) {
+    $_SESSION['message'] = "<p class='alert alert-success'>Location Updated</p>";
+    header('location: location_crud.php');
+  } else {
+    $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
+    header('location: location_crud.php');
+  }
+}
+
+// Delete
+if (isset($_GET['location_del'])) {
+	$id = $_GET['location_del'];
+
+  $itemDelSQL = mysqli_query($link, "DELETE FROM locations WHERE location_id='$id'");
+
+  if($itemDelSQL) {
+    $_SESSION['message'] = "<p class='alert alert-success'>Location Deleted</p>";
+    header('location: location_crud.php');
+  } else {
+    $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
+    header('location: location_crud.php');
+  }
+}
+
 // Data Tidy
 function dataTidy($data) {
   $tidyData = trim($data);
