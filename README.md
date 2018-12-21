@@ -9,4 +9,4 @@ The new request applications give users the ability to request a variety of item
 - AJAX Searching and filtering of results based on a search.
 
 ## Authors
-**JN646** - Lead developer. 
+**JN646** - Lead developer.
