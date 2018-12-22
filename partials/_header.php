@@ -40,6 +40,7 @@
 
     <!-- JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="<?php echo $environment; ?>lib/main.js"></script>
     <!-- <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=x9qd1yadiyni5k2ewcrz7bblh4na43kf2jux0mp6334m7ult"></script>
     <script>tinymce.init({ selector:'textarea' });</script> -->
   </head>

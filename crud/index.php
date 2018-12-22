@@ -229,9 +229,9 @@ if (isset($_GET['edit'])) {
             <table id='resultTable' class='table table-sm table-bordered'>
               <thead class="thead-light">
                 <tr>
-                  <th class='text-center'>ID</th>
-                  <th class='text-center'>Item Name</th>
-                  <th class='text-center'>Item Type</th>
+                  <th onclick="sortTable(0)" class='text-center'>ID</th>
+                  <th onclick="sortTable(1)" class='text-center'>Item Name</th>
+                  <th onclick="sortTable(2)" class='text-center'>Item Type</th>
                   <th class='text-center' colspan="3">Action</th>
                 </tr>
               </thead>
