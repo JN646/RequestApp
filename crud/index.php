@@ -48,7 +48,7 @@ if (isset($_GET['edit'])) {
             <?php endif ?>
 
             <!-- Header -->
-            <h1>Item Database</h1>
+            <h1 class='pageHeader'>Item Database</h1>
             <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_nav.php");?>
             <p>This is the item management pane. Use this system to manage and remove items from the system.</p>
 
@@ -87,22 +87,12 @@ if (isset($_GET['edit'])) {
                       <?php
                       // Type Drowndown Menu
                       $typeResult = mysqli_query($link,"SELECT * FROM types ORDER BY type_name ASC");
-
-                      // Generate Select box with AJAX link.
                       echo "<select id='typeSelect' class='form-control' name='type'>";
-
-                        // Default option.
                         echo "<option class='form-control' value='0'>Please select...</option>";
-
-                        // Generate options from database.
                         while($row = mysqli_fetch_array($typeResult)) {
                           echo "<option class='form-control' value='" . $row['type_id'] . "'>" . $row['type_name'] . "</option>";
                         }
-
                         echo "</select>";
-
-                        // Close connection.
-                        // mysqli_close($link);
                         ?>
                     </div>
                   </div>
@@ -144,18 +134,11 @@ if (isset($_GET['edit'])) {
                       <?php
                       // Type Drowndown Menu
                       $schemaResult = mysqli_query($link,"SELECT * FROM field_schema ORDER BY schema_name ASC");
-
-                      // Generate Select box with AJAX link.
                       echo "<select id='schemaSelect' class='form-control' name='schema'>";
-
-                        // Default option.
                         echo "<option class='form-control' value='0'>Please select...</option>";
-
-                        // Generate options from database.
                         while($row = mysqli_fetch_array($schemaResult)) {
                           echo "<option class='form-control' value='" . $row['schema_id'] . "'>" . $row['schema_name'] . "</option>";
                         }
-
                         echo "</select>";
                         ?>
                     </div>

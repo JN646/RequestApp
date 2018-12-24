@@ -65,6 +65,7 @@
       <?php
           while ($row = mysqli_fetch_array($result)) {
             // Map Variables
+            $itemID = $row['item_id'];
             $transID = $row['trans_id'];
             $transSession = $row['trans_session_id'];
             $transItemID = $row['trans_id'];
@@ -79,7 +80,7 @@
               echo "<tbody>";
                 echo "<tr>";
                   echo "<td class='text-center'>" . $transID . "</td>";
-                  echo "<td><a href=''>" . $transItem . "</a></td>";
+                  echo "<td><a href='../crud/view.php?id=" . $itemID . "'>" . $transItem . "</a></td>";
                   echo "<td>" . $transTypeIcon . " " . $transType . "</td>";
                   echo "<td>" . date("d/m/Y", strtotime($transTime)) . "</td>";
                   echo "<td>" . date("H:m:s", strtotime($transTime)) . "</td>";
