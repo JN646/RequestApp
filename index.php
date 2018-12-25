@@ -10,14 +10,19 @@
   <div class="fluid-container">
     <br>
     <div class="col-md-12">
-      <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-          <h1 class="display-4">Request the things.</h1>
-          <h3>You session Number is: <?php echo $_SESSION['session'] ?></h3>
-          <form class="" action="lib/session_server.php" method="post">
-            <button class='btn btn-primary' type="submit" name="sessionOut">Logout</button>
-          </form>
-          <p class="lead">System to request items.</p>
+      <div id='homeJumboOuter'>
+        <button id='showHideJumboHome' type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div id='homeJumbo' class="jumbotron jumbotron-fluid">
+          <div id='homeJumboContainer' class="container">
+            <h1 class="display-4">Request the things.</h1>
+            <h3>You session Number is: <?php echo $_SESSION['session'] ?></h3>
+            <form class="" action="lib/session_server.php" method="post">
+              <button class='btn btn-primary' type="submit" name="sessionOut">Logout</button>
+            </form>
+            <p class="lead">System to request items.</p>
+          </div>
         </div>
       </div>
 
@@ -110,5 +115,12 @@
   <?php
 }
   ?>
+  <script type="text/javascript">
+  // Toggle Update Form.
+  $("#showHideJumboHome").click(function(){
+    console.log('Pressed.');
+    $("#homeJumboOuter").hide();
+  });
+  </script>
 </body>
 <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_footer.php");?>

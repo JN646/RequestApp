@@ -41,6 +41,12 @@ a.nav-link:hover {
   color: green;
 }
 
+/* Show Hide Jumbo */
+#showHideJumboHome {
+  padding-right: 20px;
+  padding-top: 10px;
+}
+
 /* Session Select Form */
 #sessionSelectForm {
   padding: 50px 0;

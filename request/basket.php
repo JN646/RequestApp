@@ -43,7 +43,7 @@
         if (mysqli_num_rows($result) > 0) {
     ?>
 
-    <h2>Session <?php echo $sessionID ?></h2>
+    <h2>Session <?php echo $_SESSION['session'] ?></h2>
     <p>
       <span>Table: </span> - <span>Value</span>
       <br>
