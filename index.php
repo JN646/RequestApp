@@ -11,21 +11,25 @@
     <br>
     <div class="col-md-12">
       <div id='homeJumboOuter'>
+        <!-- Hide Jumbo -->
         <button id='showHideJumboHome' type="button" class="close" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+
+        <!-- Jumbo -->
         <div id='homeJumbo' class="jumbotron jumbotron-fluid">
           <div id='homeJumboContainer' class="container">
             <h1 class="display-4">Request the things.</h1>
             <h3>You session Number is: <?php echo $_SESSION['session'] ?></h3>
-            <form class="" action="lib/session_server.php" method="post">
-              <button class='btn btn-primary' type="submit" name="sessionOut">Logout</button>
+            <form id='jumboForm' class="" action="lib/session_server.php" method="post">
+              <button class='btn btn-success btn-lg' type="submit" name="sessionOut">Logout</button>
             </form>
             <p class="lead">System to request items.</p>
           </div>
         </div>
       </div>
 
+      <!-- Debug Nav -->
       <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_nav.php");?>
 
       <br>
@@ -58,19 +62,11 @@
       <?php
       // Type Drowndown Menu
       $result = mysqli_query($link,"SELECT * FROM types ORDER BY type_name ASC");
-
-      // Generate Select box with AJAX link.
       echo "<select class='form-control' name='users' onchange='showUser(this.value)'>";
-
-        // Default option.
         echo "<option class='form-control' value='0'>Please select...</option>";
-
-        // Generate options from database.
         while($row = mysqli_fetch_array($result)) {
           echo "<option class='form-control' value='" . $row['type_id'] . "'>" . $row['type_name'] . " - (" . countThings($link, $row['type_name']) . ")" . "</option>";
         }
-
-        // Close connection.
         mysqli_close($link);
         ?>
       </select>
@@ -116,7 +112,7 @@
 }
   ?>
   <script type="text/javascript">
-  // Toggle Update Form.
+  // Hide Jumbo.
   $("#showHideJumboHome").click(function(){
     console.log('Pressed.');
     $("#homeJumboOuter").hide();

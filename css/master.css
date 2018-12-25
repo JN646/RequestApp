@@ -41,6 +41,22 @@ a.nav-link:hover {
   color: green;
 }
 
+/* Jumbo */
+div#homeJumboContainer {
+  text-align: center;
+}
+
+form#jumboForm {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#homeJumbo {
+  background-image: url('../images/jumbobg.png');
+  background-attachment: fixed;
+  background-size: cover;
+}
+
 /* Show Hide Jumbo */
 #showHideJumboHome {
   padding-right: 20px;
