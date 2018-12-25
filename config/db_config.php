@@ -22,6 +22,7 @@ $environment = LOCAL; //change to WEB if you're live
 // Switches
 $sessionID = 1;
 $darkMode = 0;
+$adminMode = 1;
 $VAT = 0.20;
 $currencySymb = "£";
 ?>

@@ -44,6 +44,20 @@
     <!-- <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=x9qd1yadiyni5k2ewcrz7bblh4na43kf2jux0mp6334m7ult"></script>
     <script>tinymce.init({ selector:'textarea' });</script> -->
   </head>
-  <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="<?php echo $environment; ?>index.php">Request App</a>
-  </nav>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="<?php echo $environment; ?>index.php">Request App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo $environment; ?>index.php"><i class='fas fa-home'></i></a>
+      </li>
+      <li class="nav-item">
+        <a class='nav-link' href='<?php echo $environment; ?>request/basket.php'><i class='fas fa-shopping-basket'></i></a>
+      </li>
+    </ul>
+  </div>
+</nav>
