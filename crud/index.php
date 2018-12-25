@@ -209,51 +209,53 @@ if (isset($_GET['edit'])) {
             if ($result = mysqli_query($link, $activesql)) {
                 if (mysqli_num_rows($result) > 0) {
             ?>
-            <table id='resultTable' class='table table-sm table-bordered'>
-              <thead class="thead-light">
-                <tr>
-                  <th onclick="sortTable(0)" class='text-center'>ID</th>
-                  <th onclick="sortTable(1)" class='text-center'>Item Name</th>
-                  <th onclick="sortTable(2)" class='text-center'>Item Type</th>
-                  <th class='text-center' colspan="3">Action</th>
-                </tr>
-              </thead>
-                <tbody>
-              <?php
-                  while ($row = mysqli_fetch_array($result)) {
-                    $itemID = $row['item_id'];
-                    $itemName = $row['item_name'];
-                    $itemType = $row['type_name'];
-                    $itemTypeIcon = $row['type_icon'];
+            <div id='resultScroller' class=''>
+              <table id='resultTable' class='table table-sm table-bordered'>
+                <thead class="thead-light">
+                  <tr>
+                    <th onclick="sortTable(0)" class='text-center'>ID</th>
+                    <th onclick="sortTable(1)" class='text-center'>Item Name</th>
+                    <th onclick="sortTable(2)" class='text-center'>Item Type</th>
+                    <th class='text-center' colspan="3">Action</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                <?php
+                    while ($row = mysqli_fetch_array($result)) {
+                      $itemID = $row['item_id'];
+                      $itemName = $row['item_name'];
+                      $itemType = $row['type_name'];
+                      $itemTypeIcon = $row['type_icon'];
 
-                    // Set the active table row class.
-                    if ($row['item_active'] == 0) {
-                      $itemActiveFlag = "table-active";
-                    } else {
-                      $itemActiveFlag = "";
+                      // Set the active table row class.
+                      if ($row['item_active'] == 0) {
+                        $itemActiveFlag = "table-active";
+                      } else {
+                        $itemActiveFlag = "";
+                      }
+
+                        // Draw Table.
+                          echo "<tr class='" . $itemActiveFlag . "'>";
+                            echo "<td class='text-center'>" . $itemID . "</td>";
+                            echo "<td>" . $itemName . "</td>";
+                            echo "<td>" . $itemTypeIcon . " " . $itemType . "</td>";
+                            echo "<td class='text-center'><a href='view.php?id=" . $itemID . "' class='view_btn'><i class='fas fa-eye'></i></a></td>";
+                            echo "<td class='text-center'><a href='index.php?edit=" . $itemID . "' class='edit_btn'><i class='fas fa-edit'></i></a></td>";
+                            echo "<td class='text-center'><a href='server.php?del=" . $itemID . "' class='del_btn'><i class='far fa-trash-alt'></i></a></td>";
+                          echo "</tr>";
                     }
+                        echo "</tbody>";
+                      echo "</table>";
 
-                      // Draw Table.
-                        echo "<tr class='" . $itemActiveFlag . "'>";
-                          echo "<td class='text-center'>" . $itemID . "</td>";
-                          echo "<td>" . $itemName . "</td>";
-                          echo "<td>" . $itemTypeIcon . " " . $itemType . "</td>";
-                          echo "<td class='text-center'><a href='view.php?id=" . $itemID . "' class='view_btn'><i class='fas fa-eye'></i></a></td>";
-                          echo "<td class='text-center'><a href='index.php?edit=" . $itemID . "' class='edit_btn'><i class='fas fa-edit'></i></a></td>";
-                          echo "<td class='text-center'><a href='server.php?del=" . $itemID . "' class='del_btn'><i class='far fa-trash-alt'></i></a></td>";
-                        echo "</tr>";
+                      // Free result set
+                      mysqli_free_result($result);
+                  } else {
+                      echo "<p class='alert alert-info'>No items were found.</p>";
                   }
-                      echo "</tbody>";
-                    echo "</table>";
-
-                    // Free result set
-                    mysqli_free_result($result);
-                } else {
-                    echo "<p class='alert alert-info'>No items were found.</p>";
-                }
-            } else {
-                echo "<p class='alert alert-info'>" . SQLError($link) . "</p>";
-            } ?>
+              } else {
+                  echo "<p class='alert alert-info'>" . SQLError($link) . "</p>";
+              } ?>
+            </div>
 
             <script>
             // Search Table JQuery

@@ -15,79 +15,48 @@ if ($_SESSION['viewMode'] == '') {
 
 // List
 if ($displayType == 1) {
-  mysqli_select_db($link,"ajax_demo");
-  $sql="SELECT * FROM items WHERE item_type = '".$q."' ORDER BY item_name ASC";
-  $result = mysqli_query($link,$sql);
-  echo "<table class='table table-bordered'>
-    <tr>
-      <th width='64px'>Image</th>
-      <th>Name</th>
-      <th>Type</th>
-      <th width='50px'>Request</th>
-    </tr>";
-  while($row = mysqli_fetch_array($result)) {
-    $itemImage = $row['item_image'];
-    $itemName = $row['item_name'];
-    $itemType = $row['item_type'];
-    $itemID = $row['item_id'];
-    $itemActive = $row['item_active'];
-
-    if ($itemImage == '') {
-      $itemImage = 'missing.jpg';
-    }
-    echo "<tr>";
-      echo "<td class='align-middle'><img class='listImage' src='images/" . $itemImage . "' height='64px' width'64px'</td>";
-      echo "<td class='align-middle'>" . $itemName . "</td>";
-      echo "<td class='align-middle'>" . $itemType . "</td>";
-
-      // Is item active?
-      if ($itemActive == 1) {
-        echo "<td class='align-middle text-center'><a href='crud/server.php?request=" . $itemID . "'><i class='fas fa-plus'></i></a></td>";
-      } else {
-        echo "<td></td>";
-      }
-    echo "</tr>";
-  }
-  echo "</table>";
-  mysqli_close($link);
 }
 
 // Grid
 if ($displayType == 2) {
-  mysqli_select_db($link,"ajax_demo");
-  $sql="SELECT * FROM items WHERE item_type = '".$q."' ORDER BY item_name ASC";
-  $result = mysqli_query($link,$sql);
-  echo "<div class='row'</div>";
-  while($row = mysqli_fetch_array($result)) {
-    $itemImage = $row['item_image'];
-    $itemName = $row['item_name'];
-    $itemID = $row['item_id'];
+  if ($q != 0) {
+    mysqli_select_db($link,"ajax_demo");
+    $sql="SELECT * FROM items WHERE item_type = '".$q."' ORDER BY item_name ASC";
+    $result = mysqli_query($link,$sql);
+    echo "<div class='row'</div>";
+    while($row = mysqli_fetch_array($result)) {
+      $itemImage = $row['item_image'];
+      $itemName = $row['item_name'];
+      $itemID = $row['item_id'];
 
-    if ($itemImage == '') {
-      $itemImage = 'missing.jpg';
-    }
+      if ($itemImage == '') {
+        $itemImage = 'missing.jpg';
+      }
 
-    echo "<div class='gridCard card col-md-2'>";
-      // echo "<div class='card-header'>Header</div>";
-      echo "<a href='crud/view.php?id=" . $itemID . "'>";
-        echo "<img class='gridImage card-img-top' src='images/" . $itemImage . "' alt='" . $itemName . "'>";
-      echo "</a>";
-      echo "<div class='card-body'>";
-        echo "<h5 class='card-title text-center'>" . $itemName . "</h5>";
-        // echo "<p class='card-text'>Some quick example text to build on the card title and make up the bulk of the cards content.</p>";
+      echo "<div class='gridCard card col-md-2'>";
+        // echo "<div class='card-header'>Header</div>";
+        echo "<a href='crud/view.php?id=" . $itemID . "'>";
+          echo "<img class='gridImage card-img-top' src='images/" . $itemImage . "' alt='" . $itemName . "'>";
+        echo "</a>";
+        echo "<div class='card-body'>";
+          echo "<h5 class='card-title text-center'>" . $itemName . "</h5>";
+          // echo "<p class='card-text'>Some quick example text to build on the card title and make up the bulk of the cards content.</p>";
 
-        // Is item active?
-        if ($row['item_active'] == 1) {
-          echo "<a href='crud/server.php?request=" . $row['item_id'] . "' class='btn btn-primary text-center'><i class='fas fa-plus'></i></a>";
-        } else {
-          echo "";
-        }
+          // Is item active?
+          if ($row['item_active'] == 1) {
+            echo "<a href='crud/server.php?request=" . $row['item_id'] . "' class='btn btn-primary text-center'><i class='fas fa-plus'></i></a>";
+          } else {
+            echo "";
+          }
 
+        echo "</div>";
       echo "</div>";
-    echo "</div>";
+    }
+    echo "</table>";
+    mysqli_close($link);
+  } else if ($q == 0) {
+    echo "<div id='nothingSelected'>Use the dropdown above to select your category.</div>";
   }
-  echo "</table>";
-  mysqli_close($link);
 }
 echo "</div>";
 ?>

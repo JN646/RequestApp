@@ -41,6 +41,12 @@ a.nav-link:hover {
   color: green;
 }
 
+/* Results Table */
+div#resultScroller {
+  height: 50vh;
+  overflow-y: auto;
+}
+
 /* Jumbo */
 div#homeJumboContainer {
   text-align: center;
@@ -55,6 +61,13 @@ form#jumboForm {
   background-image: url('../images/jumbobg.png');
   background-attachment: fixed;
   background-size: cover;
+}
+
+div#nothingSelected {
+  max-width: 35%;
+  border: 1px solid black;
+  padding: 50px;
+  margin: 0 auto;
 }
 
 /* Show Hide Jumbo */

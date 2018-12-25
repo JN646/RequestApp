@@ -73,7 +73,9 @@
       </form>
       <br>
       <!-- Display results -->
-      <div id="txtHint" class='text-center'><b>Item info will be listed here...</b></div>
+      <div id="txtHint" class='text-center'>
+        <div id='nothingSelected'>Use the dropdown above to select your category.</div>
+      </div>
     </div>
   </div>
   <?php
