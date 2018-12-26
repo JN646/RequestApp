@@ -89,10 +89,15 @@ if (!isset($_SESSION['session'])) {
                   echo "<td>" . $transItem . "</td>";
                   echo "<td>" . $transTypeIcon . " " . $transType . "</td>";
                   echo "<td>" . date("H:m:s - m/d/Y", strtotime($transTime)) . "</td>";
-                  echo "<td class='text-center'>" . $transDelivered . "</td>";
 
-                  // Hide Deliver Button.
+                  // Item been delivered?
                   if ($transDelivered != 0 || $transDelivered != 1) {
+                    if ($transDelivered == 1) {
+                      echo "<td class='text-center text-green'><i class='fas fa-check'></i></td>";
+                    } else if ($transDelivered == 0) {
+                      echo "<td></td>";
+                    }
+
                     if ($transDelivered == 0) {
                       // If item has not been delivered.
                       echo "<td class='text-center'><a href='../crud/server.php?delivered=" . $transItemID . "' class='view_btn'><i class='fas fa-truck'></i></a></td>";

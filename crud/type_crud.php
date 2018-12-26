@@ -70,7 +70,7 @@ if (isset($_GET['type_edit'])) {
                 <!-- Icon -->
                 <div class='col'>
                   <div class="form-group">
-                    <label class="">Icon</label><br>
+                    <label class="">Icon (font awsome)</label><br>
                     <input class='form-control' type="text" name="icon" placeholder="Icon HTML" value="<?php echo htmlspecialchars($icon); ?>">
                   </div>
                 </div>
@@ -111,6 +111,7 @@ if (isset($_GET['type_edit'])) {
                 $typeID = $row['type_id'];
                 $typeName = $row['type_name'];
                 $typeIcon = $row['type_icon'];
+                $typeCount = countThings($link, $typeName);
 
                   // Draw Table.
                   echo "<tbody>";
@@ -118,9 +119,13 @@ if (isset($_GET['type_edit'])) {
                       echo "<td class='text-center'>" . $typeID . "</td>";
                       echo "<td>" . $typeName . "</td>";
                       echo "<td class='text-center'>" . $typeIcon . "</td>";
-                      echo "<td class='text-center'>" . countThings($link, $typeName) . "</td>";
+                      if ($typeCount != 0) {
+                        echo "<td class='text-center'>" . $typeCount . "</td>";
+                      } else {
+                        echo "<td class='text-center' style='color:red;'>" . $typeCount . "</td>";
+                      }
                       echo "<td class='text-center'><a href='type_crud.php?type_edit=" . $typeID . "' class='edit_btn'><i class='fas fa-edit'></i></a></td>";
-                      echo "<td class='text-center'><a href='server.php?type_del=" . $typeID . "' class='del_btn'><i class='far fa-trash-alt'></i></a></td>";
+                      echo "<td class='text-center'><a href='server.php?type_del=" . $typeID . "' class='del_btn' onclick='return confirm('Are you sure?');'><i class='far fa-trash-alt'></i></a></td>";
                     echo "</tr>";
                   echo "</tbody>";
               }
@@ -140,7 +145,6 @@ if (isset($_GET['type_edit'])) {
 
         // Toggle Update Form.
         $("#showHide").click(function(){
-          console.log('Pressed.');
           $("#addUpdateForm").toggle();
         });
         </script>
