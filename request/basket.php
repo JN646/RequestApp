@@ -4,6 +4,12 @@
 <!-- Start the session -->
 <?php session_start(); ?>
 
+<?php
+if (!isset($_SESSION['session'])) {
+  header('location:' . $environment . 'lib/sessionselect.php');
+}
+?>
+
 <body>
 <div class="container">
   <br>

@@ -1,4 +1,6 @@
 <?php
+require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/config/db_config.php");
+
 session_start();
 
 if (isset($_POST['startSession'])) {
@@ -6,11 +8,11 @@ if (isset($_POST['startSession'])) {
   echo $table;
 
   $_SESSION['session'] = $_POST['session'];
-  header('location: ../index.php');
+  header('location:' . $environment . 'index.php');
 }
 
 if (isset($_POST['sessionOut'])) {
   unset($_SESSION['session']);
-  header('location: ../index.php');
+  header('location:' . $environment . 'index.php');
 }
 ?>
