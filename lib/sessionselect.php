@@ -3,6 +3,12 @@
 
 <?php session_start(); ?>
 
+<?php
+if (!isset($_SESSION['session'])) {
+  header('location:' . $environment . 'lib/sessionselect.php');
+}
+?>
+
 <body>
   <div class="container">
     <div id='sessionSelectBox' class=''>
@@ -33,5 +39,4 @@
       </div>
     </div>
   </div>
-</body>
 <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_footer.php");?>

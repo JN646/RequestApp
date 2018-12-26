@@ -17,10 +17,8 @@ if (!isset($_SESSION['session'])) {
     <!-- Notification Block -->
     <?php if (isset($_SESSION['message'])): ?>
         <div class="msg">
-          <?php
-            echo $_SESSION['message'];
-            unset($_SESSION['message']);
-          ?>
+          <?php echo $_SESSION['message']; ?>
+          <?php unset($_SESSION['message']); ?>
         </div>
       <?php endif ?>
 
@@ -125,5 +123,4 @@ if (!isset($_SESSION['session'])) {
     } ?>
   </div>
 </div>
-</body>
 <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_footer.php");?>

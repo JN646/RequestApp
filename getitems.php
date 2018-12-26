@@ -13,10 +13,6 @@ if ($_SESSION['viewMode'] == '') {
   $displayType = $_SESSION['viewMode'];
 }
 
-// List
-if ($displayType == 1) {
-}
-
 // Grid
 if ($displayType == 2) {
   if ($q != 0) {
@@ -41,13 +37,12 @@ if ($displayType == 2) {
         echo "</a>";
           echo "<div class='card-body'>";
             echo "<h5 class='card-title text-center'>" . $itemName . "</h5>";
-            // echo "<p class='card-text'>Some quick example text to build on the card title and make up the bulk of the cards content.</p>";
 
             // Is item active?
             if ($row['item_active'] == 1) {
               echo "<a href='crud/server.php?request=" . $row['item_id'] . "' class='btn btn-primary text-center'><i class='fas fa-plus'></i></a>";
             } else {
-              echo "";
+              echo "<span class='text-muted text-center'>Not Available</span>";
             }
           echo "</div>";
         echo "</div>";

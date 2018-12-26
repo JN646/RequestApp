@@ -15,14 +15,12 @@ if (!isset($_SESSION['session'])) {
   <br>
   <div class="col-md-12">
     <!-- Notification Block -->
-        <?php if (isset($_SESSION['message'])): ?>
-            <div class="msg">
-              <?php
-                echo $_SESSION['message'];
-                unset($_SESSION['message']);
-              ?>
-            </div>
-          <?php endif ?>
+    <?php if (isset($_SESSION['message'])): ?>
+      <div class="msg">
+        <?php echo $_SESSION['message']; ?>
+        <?php unset($_SESSION['message']); ?>
+      </div>
+    <?php endif ?>
 
     <h2>Basket</h2>
 
@@ -32,7 +30,6 @@ if (!isset($_SESSION['session'])) {
     <br>
 
     <?php
-
     // SQL
     $activesql = "SELECT * FROM transaction_log
     INNER JOIN items ON transaction_log.trans_item_id=items.item_id
