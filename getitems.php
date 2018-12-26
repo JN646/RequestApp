@@ -33,26 +33,26 @@ if ($displayType == 2) {
         $itemImage = 'missing.jpg';
       }
 
-      echo "<div class='gridCard card col-md-2'>";
+      echo "<div class='gridCard col-md-2 py-2'>";
+        echo "<div class='gridCardInner col-md-12 card border'>";
         // echo "<div class='card-header'>Header</div>";
         echo "<a href='crud/view.php?id=" . $itemID . "'>";
           echo "<img class='gridImage card-img-top' src='images/" . $itemImage . "' alt='" . $itemName . "'>";
         echo "</a>";
-        echo "<div class='card-body'>";
-          echo "<h5 class='card-title text-center'>" . $itemName . "</h5>";
-          // echo "<p class='card-text'>Some quick example text to build on the card title and make up the bulk of the cards content.</p>";
+          echo "<div class='card-body'>";
+            echo "<h5 class='card-title text-center'>" . $itemName . "</h5>";
+            // echo "<p class='card-text'>Some quick example text to build on the card title and make up the bulk of the cards content.</p>";
 
-          // Is item active?
-          if ($row['item_active'] == 1) {
-            echo "<a href='crud/server.php?request=" . $row['item_id'] . "' class='btn btn-primary text-center'><i class='fas fa-plus'></i></a>";
-          } else {
-            echo "";
-          }
-
+            // Is item active?
+            if ($row['item_active'] == 1) {
+              echo "<a href='crud/server.php?request=" . $row['item_id'] . "' class='btn btn-primary text-center'><i class='fas fa-plus'></i></a>";
+            } else {
+              echo "";
+            }
+          echo "</div>";
         echo "</div>";
       echo "</div>";
     }
-    echo "</table>";
     mysqli_close($link);
   } else if ($q == 0) {
     echo "<div id='nothingSelected'>Use the dropdown above to select your category.</div>";

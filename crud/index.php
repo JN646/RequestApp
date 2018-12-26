@@ -106,15 +106,20 @@ if (isset($_GET['edit'])) {
                   </div>
 
                   <!-- Price -->
-                  <div class="col">
+                  <div class="col-2">
                     <div class="form-group">
                       <label for="price">Price</label>
-                      <input class='form-control' type="text" name="price" placeholder="Price" value="<?php echo $price; ?>">
+                      <div class='input-group'>
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><?php echo $currencySymb ?></span>
+                        </div>
+                        <input class='form-control' type="text" name="price" placeholder="Price" value="<?php echo $price; ?>">
+                      </div>
                     </div>
                   </div>
 
                   <!-- Item Active-->
-                  <div class='col'>
+                  <div class='col-1'>
                     <div class="form-group">
                       <label class="">Active</label><br>
                       <input type="hidden" name="active" value="0">
@@ -128,7 +133,7 @@ if (isset($_GET['edit'])) {
                   <legend>Fields</legend>
 
                   <!-- Schema -->
-                  <div class='col'>
+                  <div class='col-2'>
                     <div class="form-group">
                       <label class="">Field Schema</label><br>
                       <?php
