@@ -44,7 +44,10 @@ if (!isset($_SESSION['session'])) {
         echo "<select class='form-control' name='users' onchange='showUser(this.value)'>";
           echo "<option class='form-control' value='0'>Please select...</option>";
           while($row = mysqli_fetch_array($result)) {
-            echo "<option class='form-control' value='" . $row['type_id'] . "'>" . $row['type_name'] . " - (" . countThings($link, $row['type_name']) . ")" . "</option>";
+            // requre at least 1 item in category to be displayed.
+            if (countThings($link, $row['type_name']) != 0) {
+              echo "<option class='form-control' value='" . $row['type_id'] . "'>" . $row['type_name'] . " - (" . countThings($link, $row['type_name']) . ")" . "</option>";
+            }
           }
           mysqli_close($link);
           ?>
