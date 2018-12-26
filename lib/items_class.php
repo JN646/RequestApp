@@ -17,8 +17,8 @@ class item {
     $this->itemType = $itemType;
     $this->itemPrice = $itemPrice;
     $this->itemActive = $itemActive;
-    $this-> getName();
-    $this-> getType();
+    $this->getName();
+    $this->getType();
   }
 
   // Destructor
