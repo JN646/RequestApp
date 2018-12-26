@@ -1,11 +1,9 @@
-<?php
-if ($adminMode == 1) {
-  if ($darkMode == 1) {
-    echo "<nav id='debugNav' class='navbar navbar-light bg-light'>";
-  } else {
-    echo "<nav id='debugNav' class='navbar navbar-dark bg-dark'>";
-  }
-?>
+<?php if ($adminMode == 1): ?>
+  <?php if ($darkMode == 1): ?>
+    <nav id='debugNav' class='navbar navbar-light bg-light'>
+  <?php else: ?>
+    <nav id='debugNav' class='navbar navbar-dark bg-dark'>
+  <?php endif; ?>
     <a class='navbar-brand' href='#'>DEBUG</a>
     <ul class='nav'>
       <li class='nav-item'>
@@ -25,6 +23,4 @@ if ($adminMode == 1) {
       </li>
     </ul>
   </nav>
-<?php
-}
-?>
+<?php endif; ?>
