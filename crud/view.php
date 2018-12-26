@@ -38,50 +38,60 @@
    ?>
 
    <!-- Header -->
-    <div class='col-md-12'>
-      <h1><?php echo $name ?></h1>
-
-      <!-- Details -->
-      <table class='table table-bordered'>
-        <tbody>
-          <tr>
-            <td></td>
-            <td>
-              <img src="../images/<?php echo $imagePath ?>" width=100px alt="<?php echo $name ?>">
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Type:</strong></td>
-            <td><?php echo $type ?></td>
-          </tr>
-          <tr>
-            <td><strong><?php echo $fieldLabel1 ?></strong></td>
-            <td><?php echo $field1 ?></td>
-          </tr>
-          <tr>
-            <td><strong><?php echo $fieldLabel2 ?></strong></td>
-            <td><?php echo $field2 ?></td>
-          </tr>
-          <tr>
-            <td><strong><?php echo $fieldLabel3 ?></strong></td>
-            <td><?php echo $field3 ?></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <br>
-
-      <h3>Notes:</h3>
-      <div class="border border-primary">
-        <?php
-        if ($notes == '') {
-          echo "<p class='text-center'>There is currently no description.</p>";
-        } else {
-          echo "<p>" . $notes . "</p>";
-        }
-        ?>
+  <div class='row'>
+    <div class="col-md-3 border">
+      <div class="col-md-12 py-2">
+        <div class="">
+          <h1 class='text-center'><?php echo $name ?></h1>
+          <h3 class='text-center'><?php echo $type ?></h3>
+        </div>
+        <div id='viewImageContainer' class="text-center">
+          <img class='img-thumbnail rounded mx-auto d-block' src="../images/<?php echo $imagePath ?>" width=100% alt="<?php echo $name ?>">
+        </div>
       </div>
-    </div>
+     </div>
+      <div class='col-md-9'>
+        <div class="jumbotron">
+
+        </div>
+
+        <h3>Notes:</h3>
+        <div class="border border-primary">
+          <div class='col-md-12 p-3'>
+            <?php
+            if ($notes == '') {
+              echo "<span class='text-center'>There is currently no description.</span>";
+            } else {
+              echo "<span>" . $notes . "</span>";
+            }
+            ?>
+          </div>
+        </div>
+
+        <br>
+
+        <!-- Details -->
+        <table class='table table-bordered'>
+          <tbody>
+            <tr>
+              <td><strong><?php echo $fieldLabel1 ?></strong></td>
+              <td><?php echo $field1 ?></td>
+            </tr>
+            <tr>
+              <td><strong><?php echo $fieldLabel2 ?></strong></td>
+              <td><?php echo $field2 ?></td>
+            </tr>
+            <tr>
+              <td><strong><?php echo $fieldLabel3 ?></strong></td>
+              <td><?php echo $field3 ?></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <br>
+
+      </div>
+  </div>
     <br>
 
     <!-- Back Button -->
