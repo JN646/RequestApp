@@ -37,42 +37,18 @@ if (!isset($_SESSION['session'])) {
 
       <br>
 
-      <script>
-      function showUser(str) {
-          if (str == "") {
-              document.getElementById("txtHint").innerHTML = "";
-              return;
-          } else {
-              if (window.XMLHttpRequest) {
-                  // code for IE7+, Firefox, Chrome, Opera, Safari
-                  xmlhttp = new XMLHttpRequest();
-              } else {
-                  // code for IE6, IE5
-                  xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-              }
-              xmlhttp.onreadystatechange = function() {
-                  if (this.readyState == 4 && this.status == 200) {
-                      document.getElementById("txtHint").innerHTML = this.responseText;
-                  }
-              };
-              xmlhttp.open("GET","getitems.php?q="+str,true);
-              xmlhttp.send();
-          }
-      }
-      </script>
       <form>
-
-      <?php
-      // Type Drowndown Menu
-      $result = mysqli_query($link,"SELECT * FROM types ORDER BY type_name ASC");
-      echo "<select class='form-control' name='users' onchange='showUser(this.value)'>";
-        echo "<option class='form-control' value='0'>Please select...</option>";
-        while($row = mysqli_fetch_array($result)) {
-          echo "<option class='form-control' value='" . $row['type_id'] . "'>" . $row['type_name'] . " - (" . countThings($link, $row['type_name']) . ")" . "</option>";
-        }
-        mysqli_close($link);
-        ?>
-      </select>
+        <?php
+        // Type Drowndown Menu
+        $result = mysqli_query($link,"SELECT * FROM types ORDER BY type_name ASC");
+        echo "<select class='form-control' name='users' onchange='showUser(this.value)'>";
+          echo "<option class='form-control' value='0'>Please select...</option>";
+          while($row = mysqli_fetch_array($result)) {
+            echo "<option class='form-control' value='" . $row['type_id'] . "'>" . $row['type_name'] . " - (" . countThings($link, $row['type_name']) . ")" . "</option>";
+          }
+          mysqli_close($link);
+          ?>
+        </select>
       </form>
       <br>
       <!-- Display results -->
@@ -82,11 +58,33 @@ if (!isset($_SESSION['session'])) {
     </div>
   </div>
   <script type="text/javascript">
-  // Hide Jumbo.
-  $("#showHideJumboHome").click(function(){
-    console.log('Pressed.');
-    $("#homeJumboOuter").hide();
+  $( document ).ready(function() {
+    // Hide Jumbo.
+    $("#showHideJumboHome").click(function(){
+      $("#homeJumboOuter").hide();
+    });
+
+    function showUser(str) {
+        if (str == "") {
+            document.getElementById("txtHint").innerHTML = "";
+            return;
+        } else {
+            if (window.XMLHttpRequest) {
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                // code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("txtHint").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET","getitems.php?q="+str,true);
+            xmlhttp.send();
+        }
+    }
   });
   </script>
-</body>
 <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_footer.php");?>
