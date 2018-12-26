@@ -79,7 +79,7 @@ if (isset($_GET['request'])) {
     `trans_item_id`,
     `trans_type_id`
   ) VALUES (
-    '1',
+    '$_SESSION[session]',
     '$id',
     '$itemType')"
   );
