@@ -6,6 +6,10 @@ define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 define('DB_NAME', 'RequestApp');
 
+// Error Logging
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+
 // Get Connection
 $link = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 

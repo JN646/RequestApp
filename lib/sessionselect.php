@@ -7,7 +7,11 @@
   <div class="container">
     <div id='sessionSelectBox' class=''>
       <div id='sessionSelectForm' class='col-md-12 text-center border p-3'>
-        <?php echo $_SESSION['session']; ?>
+        <?php
+        if (isset($_SESSION['session'])) {
+          echo $_SESSION['session'];
+        }
+        ?>
         <h1 class='display-4'>Select Your Location</h1>
         <form class="form-group" action="session_server.php" method="post">
           <div class="form-group">

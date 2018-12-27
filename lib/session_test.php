@@ -4,8 +4,8 @@
   }
 </style>
 <?php
-include 'sessions_class.php';
-include '../config/db_config.php';
+require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/config/db_config.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/lib/sessions_class.php");
 
 $table = '5';
 
