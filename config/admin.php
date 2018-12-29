@@ -2,8 +2,9 @@
 <?php include_once '../partials/_header.php' ?>
 
 <?php
-// Start Session
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 ?>
 
 <!-- Container -->

@@ -1,7 +1,11 @@
 <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_header.php");?>
 <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/lib/session_server.php");?>
 
-<?php session_start(); ?>
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+?>
 
 <?php
 if (!isset($_SESSION['session'])) {
@@ -13,6 +17,13 @@ if (!isset($_SESSION['session'])) {
   <div class="fluid-container">
     <br>
     <div class="col-md-12">
+      <!-- Notification Block -->
+      <?php if (isset($_SESSION['message'])): ?>
+        <div class="msg">
+          <?php echo $_SESSION['message']; ?>
+          <?php unset($_SESSION['message']); ?>
+        </div>
+      <?php endif ?>
       <div id='homeJumboOuter'>
         <!-- Hide Jumbo -->
         <button id='showHideJumboHome' type="button" class="close" aria-label="Close">

@@ -2,7 +2,11 @@
 <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_header.php");?>
 
 <!-- Start the session -->
-<?php session_start(); ?>
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+?>
 
 <?php
 if (!isset($_SESSION['session'])) {

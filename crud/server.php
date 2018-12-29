@@ -3,7 +3,9 @@
 require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/config/db_config.php");
 
 // Start Session
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 
 // initialise variables
 $name = $type = "";

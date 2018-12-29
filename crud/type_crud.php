@@ -3,7 +3,9 @@
 
 <?php
 // Start Session
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 
 // initialise variables
 $name = $icon = "";

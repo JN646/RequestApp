@@ -23,16 +23,16 @@ class Session
     $result = mysqli_query($link, $sqlCheck);
 
     if (mysqli_num_rows($result) != 0) {
-      echo "There is already a session. </br>";
+      echo "<p>There is already a session.</p>";
     } else {
 
       // Error catch
       if (!$result) {
-          echo "New record created successfully </br>";
+          echo "<p>New record created successfully</p>";
           $_SESSION['session'] = $sessionTable;
           echo "<p style='color: green;'>Session was set.</p>";
       } else {
-          echo "Error: " . mysqli_error($link);
+          echo "<p>Error: " . mysqli_error($link) . "</p>";
       }
     }
 
@@ -54,23 +54,23 @@ class Session
     if ($count == '') {
       $count = 'ERROR';
     }
-    echo "Number of Sessions: " . $count . "</br>";
+    $_SESSION['message'] = "<p class='alert alert-info'>Number of Sessions: " . $count . "</p>";
   }
 
   // Add Session to database.
   function createSessionDB($link,$sessionTable) {
-    $sqlCheck = "SELECT * FROM sessions
-    WHERE session_location_id = '$sessionTable'
-    AND session_closed = '0'";
+    $sqlCheck = "SELECT * FROM sessions WHERE  session_location_id = '$sessionTable' AND session_closed = '0'";
     $result = mysqli_query($link, $sqlCheck);
-
     if (mysqli_num_rows($result) != 0) {
-      echo "There is already a session. </br>";
+      $_SESSION['message'] = "<p class='alert alert-info'>There is already a session.</p>";
     } else {
-
+      $sqlAdd = "INSERT INTO sessions (session_location_id) VALUES ($sessionTable)";
       // Error catch
-      if (!$result) {
-          echo "Error: " . mysqli_error($link) . " </br>";
+      if (mysqli_query($link, $sqlAdd)) {
+        $_SESSION['message'] = "<p class='alert alert-success'>New Session Created.</p>";
+        $_SESSION['session'] = $sessionTable;
+      } else {
+        $_SESSION['message'] = "<p class='alert alert-danger'>ERROR: " . mysqli_error($link) . "</p>";
       }
     }
   }
@@ -87,9 +87,9 @@ class Session
 
     // Error catch
     if (!$result) {
-        echo "Error: " . mysqli_error($link) . " </br>";
+        echo "<p>Error: " . mysqli_error($link) . "</p>";
     }
-    echo "Number of Sessions Closed: " . $count . "</br>";
+    echo "<p>Number of Sessions Closed: " . $count . "</p>";
   }
 }
 ?>

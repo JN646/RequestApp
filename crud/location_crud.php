@@ -29,14 +29,12 @@ if (isset($_GET['location_edit'])) {
   <br>
   <div class='col-md-12'>
     <!-- Notification Block -->
-        <?php if (isset($_SESSION['message'])): ?>
-            <div class="msg">
-              <?php
-                echo $_SESSION['message'];
-                unset($_SESSION['message']);
-              ?>
-            </div>
-          <?php endif ?>
+    <?php if (isset($_SESSION['message'])): ?>
+      <div class="msg">
+        <?php echo $_SESSION['message']; ?>
+        <?php unset($_SESSION['message']); ?>
+      </div>
+    <?php endif ?>
 
           <!-- Header -->
           <h1>Type Database</h1>
