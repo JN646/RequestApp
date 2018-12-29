@@ -6,15 +6,8 @@ if (!$link) {
   die('Could not connect: ' . mysqli_error($link));
 }
 
-// Display Type Debug
-if ($_SESSION['viewMode'] == '') {
-  $displayType = 2;
-} else {
-  $displayType = $_SESSION['viewMode'];
-}
-
 // Grid
-if ($displayType == 2) {
+if (true) {
   if ($q != 0) {
     mysqli_select_db($link,"ajax_demo");
     $sql="SELECT * FROM items WHERE item_type = '".$q."' ORDER BY item_name ASC";
@@ -29,7 +22,7 @@ if ($displayType == 2) {
         $itemImage = 'missing.jpg';
       }
 
-      echo "<div class='gridCard col-md-2 py-2'>";
+      echo "<div class='gridCard col-sm-4 col-md-3 col-lg-2 py-2'>";
         echo "<div class='gridCardInner col-md-12 card border'>";
         // echo "<div class='card-header'>Header</div>";
         echo "<a href='crud/view.php?id=" . $itemID . "'>";
