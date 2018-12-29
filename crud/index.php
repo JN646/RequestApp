@@ -6,7 +6,7 @@
 session_start();
 
 // initialise variables
-$name = $type = $imagePath = '';
+$name = $imagePath = $notes = $field1 = $field2 = $field3 = '';
 $active = 0;
 $price = '0.00';
 $update = false;
@@ -238,13 +238,13 @@ if (isset($_GET['edit'])) {
                     }
 
                       // Draw Table.
-                        echo "<tr class='" . $itemActiveFlag . "'>";
-                          echo "<td class='text-center'>" . $itemID . "</td>";
-                          echo "<td>" . $itemName . "</td>";
-                          echo "<td>" . $itemTypeIcon . " " . $itemType . "</td>";
-                          echo "<td class='text-center'><a href='view.php?id=" . $itemID . "' class='view_btn'><i class='fas fa-eye'></i></a></td>";
-                          echo "<td class='text-center'><a href='index.php?edit=" . $itemID . "' class='edit_btn'><i class='fas fa-edit'></i></a></td>";
-                          echo "<td class='text-center'><a href='server.php?del=" . $itemID . "' class='del_btn'><i class='far fa-trash-alt'></i></a></td>";
+                        echo "<tr class='{$itemActiveFlag}'>";
+                          echo "<td class='text-center'>{$itemID}</td>";
+                          echo "<td>{$itemName}</td>";
+                          echo "<td>{$itemTypeIcon} {$itemType}</td>";
+                          echo "<td class='text-center'><a href='view.php?id={$itemID}' class='view_btn'><i class='fas fa-eye'></i></a></td>";
+                          echo "<td class='text-center'><a href='index.php?edit={$itemID}' class='edit_btn'><i class='fas fa-edit'></i></a></td>";
+                          echo "<td class='text-center'><a href='server.php?del={$itemID}' class='del_btn'><i class='far fa-trash-alt'></i></a></td>";
                         echo "</tr>";
                   }
                       echo "</tbody>";
@@ -265,13 +265,9 @@ if (isset($_GET['edit'])) {
           $(document).ready(function(){
             // Get active checkbox.
             var activeCheckbox = document.getElementById('activeCheckbox');
-
-            // Set Active Checkbox Value
             if (<?php echo $active; ?> == 1) {
-              // Check the box.
               activeCheckbox.checked = true;
             } else {
-              // Uncheck the box.
               activeCheckbox.checked = false;
             }
 
