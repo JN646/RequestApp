@@ -26,6 +26,15 @@ if (session_status() == PHP_SESSION_NONE) {
       <p>This is the sessions management pane.</p>
 
       <?php
+      function timeElapsed($sessionStart) {
+        $delta_time = time() - strtotime($sessionStart);
+        $hours = floor($delta_time / 3600);
+        $delta_time %= 3600;
+        $minutes = floor($delta_time / 60);
+
+        return "{$hours}H {$minutes}m";
+      }
+
       // ACTIVE RESULTS
       $activesql = "SELECT * FROM sessions
       INNER JOIN locations ON sessions.session_location_id=locations.location_id
@@ -39,6 +48,7 @@ if (session_status() == PHP_SESSION_NONE) {
             <th class='text-center'>ID</th>
             <th class='text-center'>Start</th>
             <th class='text-center'>End</th>
+            <th class='text-center'>Dur</th>
             <th class='text-center'>Paid</th>
             <th class='text-center'>Closed</th>
             <th class='text-center'>Location</th>
@@ -58,7 +68,7 @@ if (session_status() == PHP_SESSION_NONE) {
                   echo "<tr>";
 
                     // Session ID?
-                    echo "<td class='text-center'>" . $sessionID . "</td>";
+                    echo "<td class='text-center'>{$sessionID}</td>";
 
                     // Session Start?
                     echo "<td>" . date("H:m:s - m/d/Y", strtotime($sessionStart)) . "</td>";
@@ -70,22 +80,24 @@ if (session_status() == PHP_SESSION_NONE) {
                       echo "<td>" . date("H:m:s - m/d/Y", strtotime($sessionEnd)) . "</td>";
                     }
 
+                    echo "<td class='text-center'>" . timeElapsed($sessionStart) . "</td>";
+
                     // Session Paid?
                     if ($sessionPaid == 1) {
-                      echo "<td class='text-center'>" . $sessionPaid . "</td>";
+                      echo "<td class='text-center'><i class='fas fa-check'></i></td>";
                     } else {
-                      echo "<td class='text-center'>" . $sessionPaid . "</td>";
+                      echo "<td></td>";
                     }
 
                     // Session Closed?
                     if ($sessionClosed == 1) {
-                      echo "<td class='text-center'>" . $sessionClosed. "</td>";
+                      echo "<td class='text-center'><i class='fas fa-check'></i></td>";
                     } else {
-                      echo "<td class='text-center'>" . $sessionClosed . "</td>";
+                      echo "<td></td>";
                     }
 
                     // Session Location?
-                    echo "<td class='text-center'>" . $sessionLocation . "</td>";
+                    echo "<td class='text-center'>{$sessionLocation}</td>";
                   echo "</tr>";
                 echo "</tbody>";
             }
