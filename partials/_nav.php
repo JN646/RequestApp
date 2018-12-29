@@ -16,6 +16,9 @@
         <a class='nav-link' href='<?php echo $environment; ?>crud/location_crud.php'>Locations</a>
       </li>
       <li class='nav-item'>
+        <a class='nav-link' href='<?php echo $environment; ?>crud/sessions_crud.php'>Sessions</a>
+      </li>
+      <li class='nav-item'>
         <a class='nav-link' href='<?php echo $environment; ?>config/admin.php'><i class='fas fa-unlock-alt'></i></a>
       </li>
       <li class='nav-item'>
