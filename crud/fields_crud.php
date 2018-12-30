@@ -77,7 +77,7 @@ if (isset($_GET['schema_edit'])) {
                 <div class='col'>
                   <div class="form-group">
                     <label class="">F1</label><br>
-                    <input class='form-control' type="text" name="name" placeholder="Field 1" value="<?php echo $f1; ?>">
+                    <input class='form-control' type="text" name="f1" placeholder="Field 1" value="<?php echo $f1; ?>">
                   </div>
                 </div>
 
@@ -85,7 +85,7 @@ if (isset($_GET['schema_edit'])) {
                 <div class='col'>
                   <div class="form-group">
                     <label class="">F2</label><br>
-                    <input class='form-control' type="text" name="name" placeholder="Field 2" value="<?php echo $f2; ?>">
+                    <input class='form-control' type="text" name="f2" placeholder="Field 2" value="<?php echo $f2; ?>">
                   </div>
                 </div>
 
@@ -93,7 +93,7 @@ if (isset($_GET['schema_edit'])) {
                 <div class='col'>
                   <div class="form-group">
                     <label class="">F3</label><br>
-                    <input class='form-control' type="text" name="name" placeholder="Field 3" value="<?php echo $f3; ?>">
+                    <input class='form-control' type="text" name="f3" placeholder="Field 3" value="<?php echo $f3; ?>">
                   </div>
                 </div>
               </div>
@@ -101,9 +101,9 @@ if (isset($_GET['schema_edit'])) {
               <!-- Submit Buttons -->
             	<div class="form-group">
             		<?php if ($update == true): ?>
-            			<button class="btn btn-primary" type="submit" name="type_update">Update</button>
+            			<button class="btn btn-primary" type="submit" name="schema_update">Update</button>
             		<?php else: ?>
-            			<button class="btn btn-success" type="submit" name="type_save">Add</button>
+            			<button class="btn btn-success" type="submit" name="schema_save">Add</button>
             		<?php endif ?>
             	</div>
             </form>
@@ -140,13 +140,13 @@ if (isset($_GET['schema_edit'])) {
                   // Draw Table.
                   echo "<tbody>";
                     echo "<tr>";
-                      echo "<td class='text-center'>" . $schemaID . "</td>";
-                      echo "<td>" . $schemaName . "</td>";
-                      echo "<td class='text-center'>" . $schemaF1 . "</td>";
-                      echo "<td class='text-center'>" . $schemaF2 . "</td>";
-                      echo "<td class='text-center'>" . $schemaF3 . "</td>";
-                      echo "<td class='text-center'><a href='fields_crud.php?schema_edit=" . $schemaID . "' class='edit_btn'><i class='fas fa-edit'></i></a></td>";
-                      echo "<td class='text-center'><a href='server.php?schema_del=" . $schemaID . "' class='del_btn' onclick='return confirm('Are you sure?');'><i class='far fa-trash-alt'></i></a></td>";
+                      echo "<td class='text-center'>{$schemaID}</td>";
+                      echo "<td>{$schemaName}</td>";
+                      echo "<td class='text-center'>{$schemaF1}</td>";
+                      echo "<td class='text-center'>{$schemaF2}</td>";
+                      echo "<td class='text-center'>{$schemaF3}</td>";
+                      echo "<td class='text-center'><a href='fields_crud.php?schema_edit={$schemaID}' class='edit_btn'><i class='fas fa-edit'></i></a></td>";
+                      echo "<td class='text-center'><a href='server.php?schema_del={$schemaID}' class='del_btn' onclick='return confirm('Are you sure?');'><i class='far fa-trash-alt'></i></a></td>";
                     echo "</tr>";
                   echo "</tbody>";
               }

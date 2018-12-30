@@ -12,6 +12,7 @@ $name = $type = "";
 $update = false;
 $id = 0;
 
+// ITEM
 // Add
 if (isset($_POST['save'])) {
   $id = dataTidy($_POST['id']);
@@ -329,8 +330,8 @@ if (isset($_POST['schema_update'])) {
 
   $schemaUpdateSQL = mysqli_query($link, "UPDATE field_schema SET
     schema_name='$name',
-    schema_f1='$f1'
-    schema_f2='$f2'
+    schema_f1='$f1',
+    schema_f2='$f2',
     schema_f3='$f3'
     WHERE
     schema_id='$id'"
