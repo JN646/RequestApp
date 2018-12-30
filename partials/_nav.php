@@ -16,6 +16,9 @@
         <a class='nav-link' href='<?php echo $environment; ?>crud/location_crud.php'>L</a>
       </li>
       <li class='nav-item'>
+        <a class='nav-link' href='<?php echo $environment; ?>crud/fields_crud.php'>F</a>
+      </li>
+      <li class='nav-item'>
         <a class='nav-link' href='<?php echo $environment; ?>crud/sessions_crud.php'>S</a>
       </li>
       <li class='nav-item'>

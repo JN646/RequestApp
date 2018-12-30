@@ -289,6 +289,77 @@ if (isset($_GET['location_del'])) {
   }
 }
 
+// FIELD SCHEMAS
+// Add
+if (isset($_POST['schema_save'])) {
+  $id = dataTidy($_POST['id']);
+  $name = dataTidy($_POST['name']);
+  $f1 = dataTidy($_POST['f1']);
+  $f2 = dataTidy($_POST['f2']);
+  $f3 = dataTidy($_POST['f3']);
+
+  $itemSQL = mysqli_query($link, "INSERT INTO field_schema (
+    `schema_name`,
+    `schema_f1`,
+    `schema_f2`,
+    `schema_f3`
+  ) VALUES (
+    '$name',
+    '$f1',
+    '$f2',
+    '$f3')"
+  );
+
+  if($itemSQL) {
+    $_SESSION['message'] = "<p class='alert alert-success'>Schema Saved</p>";
+    header('location: fields_crud.php');
+  } else {
+    $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
+    header('location: fields_crud.php');
+  }
+}
+
+// Edit
+if (isset($_POST['schema_update'])) {
+  $id = dataTidy($_POST['id']);
+  $name = dataTidy($_POST['name']);
+  $f1 = dataTidy($_POST['f1']);
+  $f2 = dataTidy($_POST['f2']);
+  $f3 = dataTidy($_POST['f3']);
+
+  $schemaUpdateSQL = mysqli_query($link, "UPDATE field_schema SET
+    schema_name='$name',
+    schema_f1='$f1'
+    schema_f2='$f2'
+    schema_f3='$f3'
+    WHERE
+    schema_id='$id'"
+  );
+
+  if($schemaUpdateSQL) {
+    $_SESSION['message'] = "<p class='alert alert-success'>Schema Updated</p>";
+    header('location: fields_crud.php');
+  } else {
+    $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
+    header('location: fields_crud.php');
+  }
+}
+
+// Delete
+if (isset($_GET['schema_del'])) {
+	$id = $_GET['location_del'];
+
+  $schemaDelSQL = mysqli_query($link, "DELETE FROM field_schema WHERE schema_id='$id'");
+
+  if($schemaDelSQL) {
+    $_SESSION['message'] = "<p class='alert alert-success'>Schema Deleted</p>";
+    header('location: fields_crud.php');
+  } else {
+    $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
+    header('location: fields_crud.php');
+  }
+}
+
 // Data Tidy
 function dataTidy($data) {
   $tidyData = trim($data);
