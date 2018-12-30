@@ -1,17 +1,19 @@
 <!-- Load Header -->
 <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_header.php");?>
 
-<!-- Start the session -->
 <?php
+// Start Session.
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-?>
 
-<?php
+// Go to session select if no session set.
 if (!isset($_SESSION['session'])) {
   header('location:' . $environment . 'lib/sessionselect.php');
 }
+
+// Set session ID to variable.
+$sessionID = $_SESSION['session'];
 ?>
 
 <body>
@@ -38,8 +40,9 @@ if (!isset($_SESSION['session'])) {
     $activesql = "SELECT * FROM transaction_log
     INNER JOIN items ON transaction_log.trans_item_id=items.item_id
     INNER JOIN types ON transaction_log.trans_type_id=types.type_id
-    WHERE trans_session_id = '$sessionID'
-    ORDER BY item_type, item_name DESC";
+    INNER JOIN sessions ON sessions.session_location_id=transaction_log.trans_session_id
+    WHERE transaction_log.trans_session_id = '$sessionID'
+    ORDER BY items.item_type, items.item_name DESC";
 
     // Get Prices
     $priceTotal = countPriceTotals($link, $sessionID);
@@ -86,9 +89,9 @@ if (!isset($_SESSION['session'])) {
               // Draw Table.
               echo "<tbody>";
                 echo "<tr>";
-                  echo "<td class='text-center'>" . $transID . "</td>";
-                  echo "<td><a href='../crud/view.php?id=" . $itemID . "'>" . $transItem . "</a></td>";
-                  echo "<td>" . $transTypeIcon . " " . $transType . "</td>";
+                  echo "<td class='text-center'>{$transID}</td>";
+                  echo "<td><a href='../crud/view.php?id={$itemID}'>{$transItem}</a></td>";
+                  echo "<td>{$transTypeIcon} {$transType}</td>";
                   echo "<td>" . date("d/m/Y", strtotime($transTime)) . "</td>";
                   echo "<td>" . date("H:m:s", strtotime($transTime)) . "</td>";
 
@@ -105,9 +108,9 @@ if (!isset($_SESSION['session'])) {
 
                   // Price negative numbers.
                   if ($itemPrice < 0.00) {
-                    echo "<td class='text-center text-red'>" . $currencySymb . $itemPrice . "</td>";
+                    echo "<td class='text-center text-red'>{$currencySymb}{$itemPrice}</td>";
                   } else {
-                    echo "<td class='text-center'>" . $currencySymb . $itemPrice . "</td>";
+                    echo "<td class='text-center'>{$currencySymb}{$itemPrice}</td>";
                   }
 
                 echo "</tr>";
@@ -134,7 +137,7 @@ if (!isset($_SESSION['session'])) {
                   echo "<td></td>";
                   echo "<td></td>";
                   echo "<td class='text-center'><strong>VAT:</strong></td>";
-                  echo "<td class='text-center'>" . $currencySymb . $vatPrice . "</td>";
+                  echo "<td class='text-center'>{$currencySymb}{$vatPrice}</td>";
                 echo "</tr>";
 
                 // Total
@@ -145,7 +148,7 @@ if (!isset($_SESSION['session'])) {
                   echo "<td></td>";
                   echo "<td></td>";
                   echo "<td class='text-center'><strong>Total:</strong></td>";
-                  echo "<td class='text-center'>" . $currencySymb . $priceTotal . "</td>";
+                  echo "<td class='text-center'>{$currencySymb}{$priceTotal}</td>";
                 echo "</tr>";
               echo "</tfooter>";
             echo "</table>";
@@ -156,7 +159,7 @@ if (!isset($_SESSION['session'])) {
             echo "<p class='alert alert-info'>No items were found.</p>";
         }
     } else {
-        SQLError($link);
+        echo "<p class='alert alert-danger'>ERROR: " . mysqli_error($link) . "</p>";
     } ?>
 
     <h3>Finished Ordering?</h3>
