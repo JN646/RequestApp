@@ -9,6 +9,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // initialise variables
 $name = $icon = "";
+$active = 0;
 $update = false;
 
 if (isset($_GET['type_edit'])) {
@@ -22,6 +23,7 @@ if (isset($_GET['type_edit'])) {
         $id = $n['type_id'];
         $name = $n['type_name'];
         $icon = $n['type_icon'];
+        $active = $n['type_active'];
     }
 }
 ?>
@@ -76,6 +78,15 @@ if (isset($_GET['type_edit'])) {
                     <input class='form-control' type="text" name="icon" placeholder="Icon HTML" value="<?php echo htmlspecialchars($icon); ?>">
                   </div>
                 </div>
+
+                <!-- Active? -->
+                <div class='col-1'>
+                  <div class="form-group">
+                    <label class="">Active</label><br>
+                    <input type="hidden" name="active" value="0">
+                    <input id='activeCheckbox' type="checkbox" name="active" value="1">
+                  </div>
+                </div>
               </div>
 
               <!-- Submit Buttons -->
@@ -104,6 +115,7 @@ if (isset($_GET['type_edit'])) {
               <th class='text-center'>ID</th>
               <th class='text-center'>Type Name</th>
               <th class='text-center'>Type Icon</th>
+              <th class='text-center'>Type Active</th>
               <th class='text-center'>Count</th>
               <th class='text-center' colspan="2">Action</th>
             </tr>
@@ -113,21 +125,30 @@ if (isset($_GET['type_edit'])) {
                 $typeID = $row['type_id'];
                 $typeName = $row['type_name'];
                 $typeIcon = $row['type_icon'];
+                $typeActive = $row['type_active'];
                 $typeCount = countThings($link, $typeName);
+
+                // Set the active table row class.
+                if ($typeActive == 0) {
+                  $typeActiveFlag = "table-active";
+                } else {
+                  $typeActiveFlag = "";
+                }
 
                   // Draw Table.
                   echo "<tbody>";
-                    echo "<tr>";
-                      echo "<td class='text-center'>" . $typeID . "</td>";
-                      echo "<td>" . $typeName . "</td>";
-                      echo "<td class='text-center'>" . $typeIcon . "</td>";
+                    echo "<tr class='{$typeActiveFlag}'>";
+                      echo "<td class='text-center'>{$typeID}</td>";
+                      echo "<td>{$typeName}</td>";
+                      echo "<td class='text-center'>{$typeIcon}</td>";
+                      echo "<td class='text-center'>{$typeActive}</td>";
                       if ($typeCount != 0) {
-                        echo "<td class='text-center'>" . $typeCount . "</td>";
+                        echo "<td class='text-center'>{$typeCount}</td>";
                       } else {
-                        echo "<td class='text-center' style='color:red;'>" . $typeCount . "</td>";
+                        echo "<td class='text-center' style='color:red;'>{$typeCount}</td>";
                       }
-                      echo "<td class='text-center'><a href='type_crud.php?type_edit=" . $typeID . "' class='edit_btn'><i class='fas fa-edit'></i></a></td>";
-                      echo "<td class='text-center'><a href='server.php?type_del=" . $typeID . "' class='del_btn' onclick='return confirm('Are you sure?');'><i class='far fa-trash-alt'></i></a></td>";
+                      echo "<td class='text-center'><a href='type_crud.php?type_edit={$typeID}' class='edit_btn'><i class='fas fa-edit'></i></a></td>";
+                      echo "<td class='text-center'><a href='server.php?type_del={$typeID}' class='del_btn' onclick='return confirm('Are you sure?');'><i class='far fa-trash-alt'></i></a></td>";
                     echo "</tr>";
                   echo "</tbody>";
               }
@@ -142,6 +163,14 @@ if (isset($_GET['type_edit'])) {
             echo "<p class='alert alert-info'>" . SQLError($link) . "</p>";
         } ?>
         <script type="text/javascript">
+        // Get active checkbox.
+        var activeCheckbox = document.getElementById('activeCheckbox');
+        if (<?php echo $typeActive; ?> == 1) {
+          activeCheckbox.checked = true;
+        } else {
+          activeCheckbox.checked = false;
+        }
+
         // Hide form by default.
         $("#addUpdateForm").hide();
 

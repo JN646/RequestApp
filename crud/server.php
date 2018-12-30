@@ -12,7 +12,7 @@ $name = $type = "";
 $update = false;
 $id = 0;
 
-// ITEM
+//******* ITEM *****************************************************************
 // Add
 if (isset($_POST['save'])) {
   $id = dataTidy($_POST['id']);
@@ -53,14 +53,14 @@ if (isset($_POST['save'])) {
 
   if($itemSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Item Saved</p>";
-    header('location: index.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   } else {
-    $_SESSION['message'] = mysqli_error($link);
-    header('location: index.php');
+    $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
 }
 
-// Request
+//******* REQUEST **************************************************************
 if (isset($_GET['request'])) {
   $id = $_GET['request'];
 
@@ -74,7 +74,7 @@ if (isset($_GET['request'])) {
     $itemName = $item['item_name'];
     $itemType = $item['item_type'];
   } else {
-    $_SESSION['message'] = mysqli_error($link);
+    $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
   }
 
   $transSQL = mysqli_query($link, "INSERT INTO transaction_log (
@@ -89,10 +89,10 @@ if (isset($_GET['request'])) {
 
   if($transSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Item Requested</p>";
-    header('location: index.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   } else {
-    $_SESSION['message'] = mysqli_error($link);
-    header('location: index.php');
+    $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
 }
 
@@ -127,10 +127,10 @@ if (isset($_POST['update'])) {
 
   if($itemUpdateSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Item Updated</p>";
-    header('location: index.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   } else {
-    $_SESSION['message'] = mysqli_error($link);
-    header('location: index.php');
+    $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
 }
 
@@ -142,10 +142,10 @@ if (isset($_GET['del'])) {
 
   if($itemDelSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Item Deleted</p>";
-    header('location: index.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   } else {
-    $_SESSION['message'] = mysqli_error($link);
-    header('location: index.php');
+    $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
 }
 
@@ -161,34 +161,37 @@ if (isset($_GET['delivered'])) {
 
   if($itemUpdateSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Item Delivered</p>";
-    header('location: ../request/request.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   } else {
-    $_SESSION['message'] = mysqli_error($link);
-    header('location: ../request/request.php');
+    $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
 }
 
-// TYPE
+//******* TYPE *****************************************************************
 // Add
 if (isset($_POST['type_save'])) {
   $id = dataTidy($_POST['id']);
   $name = dataTidy($_POST['name']);
   $icon = dataTidy($_POST['icon']);
+  $active = dataTidy($_POST['active']);
 
   $itemSQL = mysqli_query($link, "INSERT INTO types (
     `type_name`,
-    `type_icon`
+    `type_icon`,
+    `type_active`
   ) VALUES (
     '$name',
-    '$icon')"
+    '$icon',
+    '$active')"
   );
 
   if($itemSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Type Saved</p>";
-    header('location: type_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   } else {
     $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
-    header('location: type_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
 }
 
@@ -197,20 +200,22 @@ if (isset($_POST['type_update'])) {
   $id = dataTidy($_POST['id']);
   $name = dataTidy($_POST['name']);
   $icon = dataTidy($_POST['icon']);
+  $active = dataTidy($_POST['active']);
 
   $itemUpdateSQL = mysqli_query($link, "UPDATE types SET
     type_name='$name',
-    type_icon='$icon'
+    type_icon='$icon',
+    type_active='$active'
     WHERE
     type_id='$id'"
   );
 
   if($itemUpdateSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Type Updated</p>";
-    header('location: type_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   } else {
     $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
-    header('location: type_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
 }
 
@@ -225,11 +230,11 @@ if (isset($_GET['type_del'])) {
     header('location: type_crud.php');
   } else {
     $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
-    header('location: type_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
 }
 
-// LOCATIONS
+//******* LOCATIONS ************************************************************
 // Add
 if (isset($_POST['location_save'])) {
   $id = dataTidy($_POST['id']);
@@ -246,10 +251,10 @@ if (isset($_POST['location_save'])) {
 
   if($itemSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Location Saved</p>";
-    header('location: location_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   } else {
     $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
-    header('location: location_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
 }
 
@@ -268,10 +273,10 @@ if (isset($_POST['location_update'])) {
 
   if($itemUpdateSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Location Updated</p>";
-    header('location: location_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   } else {
     $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
-    header('location: location_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
 }
 
@@ -283,14 +288,14 @@ if (isset($_GET['location_del'])) {
 
   if($itemDelSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Location Deleted</p>";
-    header('location: location_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   } else {
     $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
-    header('location: location_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
 }
 
-// FIELD SCHEMAS
+//******* FIELD SCHEMA *********************************************************
 // Add
 if (isset($_POST['schema_save'])) {
   $id = dataTidy($_POST['id']);
@@ -313,10 +318,10 @@ if (isset($_POST['schema_save'])) {
 
   if($itemSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Schema Saved</p>";
-    header('location: fields_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   } else {
     $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
-    header('location: fields_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
 }
 
@@ -339,10 +344,10 @@ if (isset($_POST['schema_update'])) {
 
   if($schemaUpdateSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Schema Updated</p>";
-    header('location: fields_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   } else {
     $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
-    header('location: fields_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
 }
 
@@ -354,13 +359,14 @@ if (isset($_GET['schema_del'])) {
 
   if($schemaDelSQL) {
     $_SESSION['message'] = "<p class='alert alert-success'>Schema Deleted</p>";
-    header('location: fields_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   } else {
     $_SESSION['message'] = "<p class='alert alert-danger'>" . mysqli_error($link) . "</p>";
-    header('location: fields_crud.php');
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
 }
 
+//******* MISC *****************************************************************
 // Data Tidy
 function dataTidy($data) {
   $tidyData = trim($data);
