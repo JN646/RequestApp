@@ -78,7 +78,7 @@ function calVAT($priceTotal, $VAT) {
 function checkRunningSession($locationID, $link) {
 	// Count Types
 	$query = "SELECT * FROM sessions
-	WHERE session_location_id='$locationID'";
+	WHERE session_location_id='$locationID' AND session_closed = 0";
 
 	// Run Query.
 	$result = mysqli_query($link, $query);

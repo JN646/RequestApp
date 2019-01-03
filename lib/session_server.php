@@ -13,33 +13,48 @@ if (isset($_POST['startSession'])) {
 
   if ($table != 0) {
     if (!isset($_SESSION['session'])) {
+      // Create a session
       $session->createSessionDB($link,$table);
     }
+    // Change the page.
     header('location:' . $environment . 'index.php');
   }
 }
 
 // Logout
 if (isset($_POST['sessionOut'])) {
+  // If there is a session.
   if (isset($_SESSION['session'])) {
+    // Map variables.
     $table = $_SESSION['session'];
-    echo "Running Session!";
-    unset($_SESSION['session']);
-    // header('location:' . $environment . 'index.php');
-  } else {
-    $table = 0;
-  }
-
-  $sqlCheck = "SELECT * FROM sessions WHERE session_location_id = '$table' AND session_closed = '0'";
-  $result = mysqli_query($link, $sqlCheck);
-  if (mysqli_num_rows($result) != 0) {
-    while($row = mysqli_fetch_array($result)) {
-      $sessionID = $row['session_id'];
-      echo "<p>Found One!</p>";
-      echo $sessionID;
+    // Run SQL
+    $sqlCheck = "SELECT * FROM sessions WHERE session_location_id = '$table' AND session_closed = '0'";
+    $result = mysqli_query($link, $sqlCheck);
+    // Count results.
+    if (mysqli_num_rows($result) != 0) {
+      while($row = mysqli_fetch_array($result)) {
+        $sessionID = $row['session_id'];
+        if (mysqli_query($link, "UPDATE sessions SET session_closed = '1' WHERE session_id = '$sessionID'")) {
+          // Record updated and session closed.
+          $_SESSION['message'] = "<p class='alert alert-success'>Record updated successfully</p>";
+          // Remove session Session and change the page.
+          unset($_SESSION['session']);
+          header('location:' . $environment . 'index.php');
+        } else {
+          // Error Message.
+          $_SESSION['message'] = "<p class='alert alert-danger'>ERROR: " . mysqli_error($link) . "</p>";
+          unset($_SESSION['session']);
+          header('location:' . $environment . 'index.php');
+        }
+      }
+    } else {
+      // No sessions found.
+      $_SESSION['message'] = "<p class='alert alert-info'>No matching session found.</p>";
+      unset($_SESSION['session']);
+      header('location:' . $environment . 'index.php');
     }
   } else {
-    echo "<p>No matching session found.</p>";
+    $table = 0;
   }
 }
 

@@ -63,7 +63,6 @@ class Session
     $result = mysqli_query($link, $sqlCheck);
     if (mysqli_num_rows($result) != 0) {
       $_SESSION['message'] = "<p class='alert alert-info'>There is already a session.</p>";
-      $_SESSION['session'] = $sessionTable;
     } else {
       $sqlAdd = "INSERT INTO sessions (session_location_id) VALUES ($sessionTable)";
       // Error catch
