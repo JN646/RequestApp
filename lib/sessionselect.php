@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 ?>
 
-<?php isSessionSet('index.php'); ?>
+<?php isSessionSet('is', 'index.php'); ?>
 
 <body>
   <div class="container">

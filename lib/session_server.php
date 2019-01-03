@@ -12,9 +12,6 @@ if (isset($_POST['startSession'])) {
   $session = new Session($table);
 
   if ($table != 0) {
-    // $session->countSession($link);
-    // $session->countSessionClosed($link);
-    // $session->getTable($table);
     if (!isset($_SESSION['session'])) {
       $session->createSessionDB($link,$table);
     }
@@ -37,11 +34,18 @@ if (isset($_POST['sessionOut'])) {
   $result = mysqli_query($link, $sqlCheck);
   if (mysqli_num_rows($result) != 0) {
     while($row = mysqli_fetch_array($result)) {
+      $sessionID = $row['session_id'];
       echo "<p>Found One!</p>";
-      echo $row['session_id'];
+      echo $sessionID;
     }
   } else {
     echo "<p>No matching session found.</p>";
   }
+}
+
+// Forced Logout
+if (isset($_POST['sessionOutForced'])) {
+  unset($_SESSION['session']);
+  header('location:' . $environment . 'index.php');
 }
 ?>

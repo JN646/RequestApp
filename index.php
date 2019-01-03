@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 ?>
 
-<?php isSessionSet('lib/sessionselect.php'); ?>
+<?php isSessionSet('not','lib/sessionselect.php'); ?>
 
 <body>
   <div class="fluid-container">
@@ -33,6 +33,9 @@ if (session_status() == PHP_SESSION_NONE) {
             <h3>You session Number is: <?php echo $_SESSION['session'] ?></h3>
             <form id='jumboForm' class="" action="lib/session_server.php" method="post">
               <button class='btn btn-success btn-lg' type="submit" name="sessionOut">Logout</button>
+            </form>
+            <form id='jumboForm' class="" action="lib/session_server.php" method="post">
+              <button class='btn btn-success btn-lg' type="submit" name="sessionOutForced">Force</button>
             </form>
             <p class="lead">System to request items.</p>
           </div>

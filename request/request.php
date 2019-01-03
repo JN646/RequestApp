@@ -8,7 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 ?>
 
-<?php isSessionSet('lib/sessionselect.php'); ?>
+<?php isSessionSet('not', 'lib/sessionselect.php'); ?>
 
 <body>
 <div class="container">
@@ -35,7 +35,6 @@ if (session_status() == PHP_SESSION_NONE) {
     INNER JOIN items ON transaction_log.trans_item_id=items.item_id
     INNER JOIN types ON transaction_log.trans_type_id=types.type_id
     ORDER BY trans_time DESC";
-
 
     if ($result = mysqli_query($link, $activesql)) {
         if (mysqli_num_rows($result) > 0) {
@@ -69,25 +68,21 @@ if (session_status() == PHP_SESSION_NONE) {
               // Draw Table.
               echo "<tbody>";
                 echo "<tr>";
-                  echo "<td class='text-center'>" . $transID . "</td>";
+                  echo "<td class='text-center'>{$transID}</td>";
 
                   // Display Session Information.
                   if ($transSession != '') {
-                    // If Session <= 0.
                     if ($transSession != 0) {
-                      // Show Session Value.
-                      echo "<td class='text-center'>" . $transSession . "</td>";
+                      echo "<td class='text-center'>{$transSession}</td>";
                     } else {
-                      // Show Error Message.
                       echo "<td class='text-center'>Error</td>";
                     }
                   } else {
-                    // No active Session.
                     echo "<td class='text-center'>No Session</td>";
                   }
 
-                  echo "<td>" . $transItem . "</td>";
-                  echo "<td>" . $transTypeIcon . " " . $transType . "</td>";
+                  echo "<td>{$transItem}</td>";
+                  echo "<td>{$transTypeIcon} {$transType}</td>";
                   echo "<td>" . date("H:m:s - m/d/Y", strtotime($transTime)) . "</td>";
 
                   // Item been delivered?
@@ -99,14 +94,11 @@ if (session_status() == PHP_SESSION_NONE) {
                     }
 
                     if ($transDelivered == 0) {
-                      // If item has not been delivered.
-                      echo "<td class='text-center'><a href='../crud/server.php?delivered=" . $transItemID . "' class='view_btn'><i class='fas fa-truck'></i></a></td>";
+                      echo "<td class='text-center'><a href='../crud/server.php?delivered={$transItemID}' class='view_btn'><i class='fas fa-truck'></i></a></td>";
                     } else if ($transDelivered == 1) {
-                      // If item has been delivered.
                       echo "<td></td>";
                     }
                   } else {
-                    // Show Error Message
                     echo "<td class='text-red'>Error</td>";
                   }
 

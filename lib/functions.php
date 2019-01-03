@@ -91,9 +91,22 @@ function checkRunningSession($locationID, $link) {
 }
 
 //############## Is The Session Set ############################################
-function isSessionSet($location) {
-	if (isset($_SESSION['session'])) {
-	  header('location:' . $environment . $location);
+function isSessionSet($not, $location) {
+	// Is either is or not.
+	if ($not == 'is' || $not == 'not') {
+		// Is
+		if ($not == 'is') {
+			if (isset($_SESSION['session'])) {
+				header('location:' . $environment . $location);
+			}
+		}
+
+		// Not
+		if ($not == 'not') {
+			if (!isset($_SESSION['session'])) {
+				header('location:' . $environment . $location);
+			}
+		}
 	}
 }
 ?>
