@@ -71,4 +71,18 @@ function calVAT($priceTotal, $VAT) {
 	// Return Price
 	return $vatPrice;
 }
+
+function checkRunningSession($locationID, $link) {
+	// Count Types
+	$query = "SELECT * FROM sessions
+	WHERE session_location_id='$locationID'";
+
+	$result = mysqli_query($link, $query);
+	$row = mysqli_fetch_array($result);
+
+	// Return Value.
+	if ($locationID == $row['session_location_id']) {
+		return "- Running";
+	}
+}
 ?>

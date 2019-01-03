@@ -32,7 +32,9 @@ if (isset($_SESSION['session'])) {
               echo "<select class='form-control' name='table'>";
                 echo "<option class='form-control' value='0'>Please select...</option>";
                 while($row = mysqli_fetch_array($result)) {
-                  echo "<option class='form-control' value='" . $row['location_id'] . "'>" . $row['location_name'] . "</option>";
+                  $locationID = $row['location_id'];
+                  $locationName = $row['location_name'];
+                  echo "<option class='form-control' value='{$locationID}'>{$locationName} " . checkRunningSession($locationID,$link) . "</option>";
                 }
                 mysqli_close($link);
                 ?>
