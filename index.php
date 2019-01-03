@@ -34,9 +34,6 @@ if (session_status() == PHP_SESSION_NONE) {
             <form id='jumboForm' class="" action="lib/session_server.php" method="post">
               <button class='btn btn-success btn-lg' type="submit" name="sessionOut">Logout</button>
             </form>
-            <form id='jumboForm' class="" action="lib/session_server.php" method="post">
-              <button class='btn btn-success btn-lg' type="submit" name="sessionOutForced">Force</button>
-            </form>
             <p class="lead">System to request items.</p>
           </div>
         </div>

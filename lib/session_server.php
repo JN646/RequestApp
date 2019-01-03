@@ -57,10 +57,4 @@ if (isset($_POST['sessionOut'])) {
     $table = 0;
   }
 }
-
-// Forced Logout
-if (isset($_POST['sessionOutForced'])) {
-  unset($_SESSION['session']);
-  header('location:' . $environment . 'index.php');
-}
 ?>
