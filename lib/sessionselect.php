@@ -7,11 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 ?>
 
-<?php
-if (isset($_SESSION['session'])) {
-  header('location:' . $environment . 'index.php');
-}
-?>
+<?php isSessionSet('index.php'); ?>
 
 <body>
   <div class="container">

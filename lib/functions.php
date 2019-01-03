@@ -1,5 +1,6 @@
 <?php
 // Function File
+require_once $_SERVER["DOCUMENT_ROOT"] . "/RequestApp/config/db_config.php";
 
 //############## Version Number ################################################
 class ApplicationVersion
@@ -25,6 +26,7 @@ class ApplicationVersion
 	// Usage: echo 'MyApplication ' . ApplicationVersion::get();
 }
 
+//############## Count Things ##################################################
 function countThings($link, $value)
 {
   // Count Types
@@ -39,7 +41,7 @@ function countThings($link, $value)
   return $rows[0];
 }
 
-// Count Totals
+//############## Count Totals ##################################################
 function countPriceTotals($link, $sessionID) {
 	// SQL
 	$activesql = "SELECT SUM(item_price) FROM transaction_log
@@ -54,7 +56,7 @@ function countPriceTotals($link, $sessionID) {
 	return $row[0];
 }
 
-// Calculate VAT
+//############## Calculate VAT #################################################
 function calVAT($priceTotal, $VAT) {
 	// Check that the VAT value is something we care about.
 	if ($VAT != '') {
@@ -72,17 +74,26 @@ function calVAT($priceTotal, $VAT) {
 	return $vatPrice;
 }
 
+//############## Show Session Running ##########################################
 function checkRunningSession($locationID, $link) {
 	// Count Types
 	$query = "SELECT * FROM sessions
 	WHERE session_location_id='$locationID'";
 
+	// Run Query.
 	$result = mysqli_query($link, $query);
 	$row = mysqli_fetch_array($result);
 
 	// Return Value.
 	if ($locationID == $row['session_location_id']) {
 		return "- Running";
+	}
+}
+
+//############## Is The Session Set ############################################
+function isSessionSet($location) {
+	if (isset($_SESSION['session'])) {
+	  header('location:' . $environment . $location);
 	}
 }
 ?>

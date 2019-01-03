@@ -8,11 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 ?>
 
-<?php
-if (!isset($_SESSION['session'])) {
-  header('location:' . $environment . 'lib/sessionselect.php');
-}
-?>
+<?php isSessionSet('lib/sessionselect.php'); ?>
 
 <body>
 <div class="container">
