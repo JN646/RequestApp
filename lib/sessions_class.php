@@ -65,10 +65,10 @@ class Session
       $_SESSION['message'] = "<p class='alert alert-info'>There is already a session.</p>";
     } else {
       $sqlAdd = "INSERT INTO sessions (session_location_id) VALUES ($sessionTable)";
-      // Error catch
       if (mysqli_query($link, $sqlAdd)) {
-        $_SESSION['message'] = "<p class='alert alert-success'>New Session Created.</p>";
-        $_SESSION['session'] = $sessionTable;
+        $last_id = mysqli_insert_id($link);
+        $_SESSION['message'] = "<p class='alert alert-success'>New Session Created. ({$last_id})</p>";
+        $_SESSION['session'] = $last_id;
       } else {
         $_SESSION['message'] = "<p class='alert alert-danger'>ERROR: " . mysqli_error($link) . "</p>";
       }

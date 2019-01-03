@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
-isSessionSet('lib/sessionselect.php');
+isSessionSet('not','lib/sessionselect.php');
 
 // Set session ID to variable.
 $sessionID = $_SESSION['session'];
@@ -33,19 +33,16 @@ $sessionID = $_SESSION['session'];
     <br>
 
     <?php
-    // SQL
+    // Get current item listings from session.
     $activesql = "SELECT * FROM transaction_log
     INNER JOIN items ON transaction_log.trans_item_id=items.item_id
     INNER JOIN types ON transaction_log.trans_type_id=types.type_id
-    INNER JOIN sessions ON sessions.session_location_id=transaction_log.trans_session_id
+    -- INNER JOIN sessions ON sessions.session_location_id=transaction_log.trans_session_id
     WHERE transaction_log.trans_session_id = '$sessionID'
     ORDER BY items.item_type, items.item_name DESC";
 
-    $sessionsql = "SELECT * FROM sessions
-    INNER JOIN locations ON sessions.session_location_id=locations.location_id
-    WHERE session_location_id = '$sessionID'";
-
-    $sessionResult = mysqli_query($link, $sessionsql);
+    // Catch multiple sessions.
+    $sessionResult = mysqli_query($link, "SELECT * FROM sessions WHERE session_id = '$sessionID'");
     if (mysqli_num_rows($sessionResult) == 1) {
       $row = mysqli_fetch_array($sessionResult);
     } else {
@@ -61,8 +58,6 @@ $sessionID = $_SESSION['session'];
         if (mysqli_num_rows($result) > 0) {
           echo "<h2>Session {$_SESSION['session']}</h2>";
           echo "<p>";
-            echo "<span>Table: </span> - <span>{$row['location_name']}</span>";
-            echo "<br>";
             echo "<span>Start Time: </span> - <span>{$row['session_start']}</span>";
           echo "</p>";
     ?>
