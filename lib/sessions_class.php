@@ -16,30 +16,7 @@ class Session
   }
 
   // Destroy the Session.
-  function destroySessionSession($link) {
-    $sqlCheck = "SELECT * FROM sessions
-    WHERE session_location_id = '$sessionTable'
-    AND session_closed = '0'";
-    $result = mysqli_query($link, $sqlCheck);
-
-    if (mysqli_num_rows($result) != 0) {
-      echo "<p>There is already a session.</p>";
-    } else {
-
-      // Error catch
-      if (!$result) {
-          echo "<p>New record created successfully</p>";
-          $_SESSION['session'] = $sessionTable;
-          echo "<p style='color: green;'>Session was set.</p>";
-      } else {
-          echo "<p>Error: " . mysqli_error($link) . "</p>";
-      }
-    }
-
-    // Unset the session
-    unset($_SESSION['session']);
-
-    echo "<p style='color: red;'>Session was destroyed.</p>";
+  function destroySession($link) {
   }
 
   // Count Number of Sessions

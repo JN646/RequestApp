@@ -28,4 +28,5 @@ $darkMode = 0;
 $adminMode = 1;
 $VAT = 0.20;
 $currencySymb = "£";
+$showItemsActive = 0;
 ?>

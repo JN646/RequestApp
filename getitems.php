@@ -10,7 +10,12 @@ if (!$link) {
 if (true) {
   if ($q != 0) {
     mysqli_select_db($link,"ajax_demo");
-    $sql="SELECT * FROM items WHERE item_type = '".$q."' ORDER BY item_name ASC";
+    if ($showItemsActive == 0) {
+      $sql="SELECT * FROM items WHERE item_type = '".$q."' ORDER BY item_name ASC";
+    }
+    if ($showItemsActive == 1) {
+      $sql="SELECT * FROM items WHERE item_type = '".$q."' AND item_active = 1 ORDER BY item_name ASC";
+    }
     $result = mysqli_query($link,$sql);
     echo "<div class='row'</div>";
     while($row = mysqli_fetch_array($result)) {
