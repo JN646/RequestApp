@@ -4,14 +4,12 @@
  */
 require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/config/db_config.php");
 
-class Session
-{
+class Session {
   private $sessionID;
   private $sessionTable;
 
   // Constructor
-  function __construct($sessionTable)
-  {
+  function __construct($sessionTable) {
     $this->sessionTable = $sessionTable;
   }
 

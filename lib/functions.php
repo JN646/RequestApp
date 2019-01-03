@@ -3,15 +3,13 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/RequestApp/config/db_config.php";
 
 //############## Version Number ################################################
-class ApplicationVersion
-{
+class ApplicationVersion {
 	// Define version numbering
 	const MAJOR = 0;
 	const MINOR = 0;
 	const PATCH = 1;
 
-	public static function get()
-	{
+	public static function get() {
 		// Prepare git information to form version number.
 		$commitHash = trim(exec('git log --pretty="%h" -n1 HEAD'));
 
@@ -27,12 +25,19 @@ class ApplicationVersion
 }
 
 //############## Count Things ##################################################
-function countThings($link, $value)
-{
+function countThings($link, $value, $showItemsActive) {
   // Count Types
-  $query = "SELECT COUNT(*) FROM items
-  INNER JOIN types ON items.item_type=types.type_id
-  WHERE type_name = '$value'";
+	if ($showItemsActive == 0) {
+		$query = "SELECT COUNT(*) FROM items
+		INNER JOIN types ON items.item_type=types.type_id
+		WHERE types.type_name = '$value'";
+	}
+
+	if ($showItemsActive == 1) {
+		$query = "SELECT COUNT(*) FROM items
+		INNER JOIN types ON items.item_type=types.type_id
+		WHERE types.type_name = '$value' AND items.item_active = '1'";
+	}
 
   $result = mysqli_query($link, $query);
   $rows = mysqli_fetch_row($result);
@@ -100,7 +105,6 @@ function isSessionSet($not, $location) {
 				header('location:' . $environment . $location);
 			}
 		}
-
 		// Not
 		if ($not == 'not') {
 			if (!isset($_SESSION['session'])) {

@@ -55,8 +55,8 @@ if (session_status() == PHP_SESSION_NONE) {
             $typeName = $row['type_name'];
 
             // requre at least 1 item in category to be displayed.
-            if (countThings($link, $typeName) != 0) {
-              echo "<option class='form-control' value='{$typeID}'>{$typeName} - (" . countThings($link, $typeName) . ")" . "</option>";
+            if (countThings($link, $typeName, $showItemsActive) != 0) {
+              echo "<option class='form-control' value='{$typeID}'>{$typeName} - (" . countThings($link, $typeName, $showItemsActive) . ")" . "</option>";
             }
           }
           mysqli_close($link);
