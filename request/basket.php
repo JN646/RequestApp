@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
-isSessionSet('not','lib/sessionselect.php');
+isSessionSet('not','../lib/sessionselect.php');
 
 // Set session ID to variable.
 $sessionID = $_SESSION['session'];

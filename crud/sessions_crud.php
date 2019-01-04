@@ -23,16 +23,40 @@ if (session_status() == PHP_SESSION_NONE) {
       <!-- Header -->
       <h1>Sessions</h1>
       <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_nav.php");?>
-      <p>This is the sessions management pane.</p>
+      <p>This is the sessions management pane. You can use this page to close any existing sesisons that are running.</p>
 
       <?php
-      function timeElapsed($sessionStart) {
-        $delta_time = time() - strtotime($sessionStart);
-        $hours = floor($delta_time / 3600);
-        $delta_time %= 3600;
-        $minutes = floor($delta_time / 60);
+      function timeElapsed($sessionStart, $sessionEnd, $sessionClosed) {
+        if ($sessionStart != NULL) {
+          // Variables
+          $start_date = new DateTime($sessionStart);
+          $timestamp = date('Y-m-d G:i:s');
 
-        return "{$hours}H {$minutes}m";
+          // Has the session ended?
+          // Session is currently running.
+          if ($sessionClosed == 0 && $sessionEnd === NULL) {
+            $since_start = $start_date->diff(new DateTime($timestamp));
+          }
+
+          // The session has ended and there is an end time recorded.
+          if ($sessionClosed == 1 && $sessionEnd !== NULL) {
+            $since_start = $start_date->diff(new DateTime($sessionEnd));
+          }
+
+          // The session has ended but no End time has been set.
+          if ($sessionClosed == 1 && $sessionEnd === NULL) {
+            return "N/A";
+          } else {
+            return $since_start->d . 'd ' . $since_start->h . 'h ' . $since_start->i . 'm';
+          }
+          // echo $since_start->days.' days total<br>';
+          // echo $since_start->y.' years<br>';
+          // echo $since_start->m.' months<br>';
+          // echo $since_start->d.' days<br>';
+          // echo $since_start->h.' hours<br>';
+          // echo $since_start->i.' minutes<br>';
+          // echo $since_start->s.' seconds<br>';
+        }
       }
 
       // ACTIVE RESULTS
@@ -60,7 +84,7 @@ if (session_status() == PHP_SESSION_NONE) {
               $sessionID = $row['session_id'];
               $sessionStart = $row['session_start'];
               $sessionEnd = $row['session_end'];
-              $sessionEndTime = date("H:m:s - m/d/Y", strtotime($sessionEnd));
+              $sessionEndTime = date("H:m:s m/d/Y", strtotime($sessionEnd));
               $sessionPaid = $row['session_paid'];
               $sessionClosed = $row['session_closed'];
               $sessionLocation = $row['location_name'];
@@ -95,7 +119,11 @@ if (session_status() == PHP_SESSION_NONE) {
                     }
 
                     // Display the duration of the session.
-                    echo "<td class='text-center'>" . timeElapsed($sessionStart) . "</td>";
+                    if (false) {
+                      echo "<td class='text-center'>" . timeElapsed($sessionStart, $sessionEndTime, $sessionClosed) . "</td>";
+                    } else {
+                      echo "<td></td>";
+                    }
 
                     // Session Paid?
                     if ($sessionPaid == 1) {
@@ -111,9 +139,9 @@ if (session_status() == PHP_SESSION_NONE) {
                       echo "<td></td>";
                     }
 
+                    // Session Force Close.
                     if ($sessionClosed == 0 && $sessionEnd === NULL) {
-                      echo "<td class='text-center'><a href='../lib/session_server.php?forceClose={$sessionID}'>Close</a>
-                      </td>";
+                      echo "<td class='text-center'><a href='../lib/session_server.php?forceClose={$sessionID}'><i class='fas fa-times-circle'></i></a></td>";
                     } else {
                       echo "<td></td>";
                     }
