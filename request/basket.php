@@ -108,7 +108,7 @@ $sessionID = $_SESSION['session'];
                     echo "<td class='text-center text-red'>Error</td>";
                   }
 
-                  // Price negative numbers.
+                  // Is the price a negative number? or is the item free?
                   if ($itemPrice < 0.00) {
                     echo "<td class='text-center text-red'>{$currencySymb}{$itemPrice}</td>";
                   } else if ($itemPrice == 0.00) {
