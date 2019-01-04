@@ -37,9 +37,9 @@ if (isset($_GET['location_edit'])) {
     <?php endif ?>
 
           <!-- Header -->
-          <h1>Type Database</h1>
+          <h1>Location Database</h1>
           <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_nav.php");?>
-          <p>This is the location management pane. Use this system to manage and remove locations from the system.</p>
+          <p>This is the location management pane. A location is a place that items can be ordered and possibly delivered to. Use this system to manage and remove locations from the system.</p>
 
           <!-- Form -->
           <div class='border border-primary'>
@@ -101,7 +101,7 @@ if (isset($_GET['location_edit'])) {
               <tr>
                 <th class='text-center'>ID</th>
                 <th class='text-center'>Location Name</th>
-                <th class='text-center'>Location Description</th>
+                <th class='text-center' width=600px>Location Description</th>
                 <th class='text-center' colspan="2">Action</th>
               </tr>
             </thead>
@@ -114,11 +114,11 @@ if (isset($_GET['location_edit'])) {
                     // Draw Table.
                     echo "<tbody>";
                       echo "<tr>";
-                        echo "<td class='text-center'>" . $locationID . "</td>";
-                        echo "<td>" . $locationName . "</td>";
-                        echo "<td class=''>" . $locationDescription . "</td>";
-                        echo "<td class='text-center'><a href='location_crud.php?location_edit=" . $locationID . "' class='edit_btn'><i class='fas fa-edit'></i></a></td>";
-                        echo "<td class='text-center'><a href='server.php?location_del=" . $locationID . "' class='del_btn'><i class='far fa-trash-alt'></i></a></td>";
+                        echo "<td class='text-center align-middle'>{$locationID}</td>";
+                        echo "<td class='align-middle'>{$locationName}</td>";
+                        echo "<td class=''>{$locationDescription}</td>";
+                        echo "<td class='text-center align-middle'><a href='location_crud.php?location_edit={$locationID}' class='edit_btn'><i class='fas fa-edit'></i></a></td>";
+                        echo "<td class='text-center align-middle'><a href='server.php?location_del={$locationID}' class='del_btn'><i class='far fa-trash-alt'></i></a></td>";
                       echo "</tr>";
                     echo "</tbody>";
                 }
