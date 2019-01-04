@@ -43,7 +43,7 @@ if (isset($_GET['type_edit'])) {
         <!-- Header -->
         <h1>Type Database</h1>
         <?php require_once($_SERVER["DOCUMENT_ROOT"] . "/RequestApp/partials/_nav.php");?>
-        <p>This is the item management pane. Use this system to manage and remove items from the system.</p>
+        <p>This is the type management pane. The system supports many different items and each item is part of a type, this acts as a group and applies certain properties. Use this system to manage and remove types from the system.</p>
 
         <!-- Form -->
         <div class='border border-primary'>
@@ -74,7 +74,7 @@ if (isset($_GET['type_edit'])) {
                 <!-- Icon -->
                 <div class='col'>
                   <div class="form-group">
-                    <label class="">Icon (font awsome)</label><br>
+                    <label class="">Icon (font awesome)</label><br>
                     <input class='form-control' type="text" name="icon" placeholder="Icon HTML" value="<?php echo htmlspecialchars($icon); ?>">
                   </div>
                 </div>
@@ -126,7 +126,7 @@ if (isset($_GET['type_edit'])) {
                 $typeName = $row['type_name'];
                 $typeIcon = $row['type_icon'];
                 $typeActive = $row['type_active'];
-                $typeCount = countThings($link, $typeName);
+                $typeCount = countThings($link, $typeName, 0);
 
                 // Set the active table row class.
                 if ($typeActive == 0) {
