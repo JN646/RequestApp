@@ -46,12 +46,12 @@ if (session_status() == PHP_SESSION_NONE) {
         <thead class="thead-dark">
           <tr>
             <th class='text-center'>ID</th>
+            <th class='text-center'>Location</th>
             <th class='text-center'>Start</th>
             <th class='text-center'>End</th>
             <th class='text-center'>Dur</th>
             <th class='text-center'>Paid</th>
             <th class='text-center'>Closed</th>
-            <th class='text-center'>Location</th>
           </tr>
         </thead>
         <?php
@@ -59,6 +59,7 @@ if (session_status() == PHP_SESSION_NONE) {
               $sessionID = $row['session_id'];
               $sessionStart = $row['session_start'];
               $sessionEnd = $row['session_end'];
+              $sessionEndTime = date("H:m:s - m/d/Y", strtotime($sessionEnd));
               $sessionPaid = $row['session_paid'];
               $sessionClosed = $row['session_closed'];
               $sessionLocation = $row['location_name'];
@@ -70,16 +71,29 @@ if (session_status() == PHP_SESSION_NONE) {
                     // Session ID?
                     echo "<td class='text-center'>{$sessionID}</td>";
 
+                    // Session Location?
+                    echo "<td class='text-center'>{$sessionLocation}</td>";
+
                     // Session Start?
                     echo "<td>" . date("H:m:s - m/d/Y", strtotime($sessionStart)) . "</td>";
 
                     // Has the session ended?
-                    if ($sessionEnd == '') {
-                      echo "<td class='text-center' style='color: green;'>Session Running</td>";
-                    } else {
-                      echo "<td>" . date("H:m:s - m/d/Y", strtotime($sessionEnd)) . "</td>";
+                    // The session has ended but no End time has been set.
+                    if ($sessionClosed == 1 && $sessionEnd === NULL) {
+                      echo "<td class='text-center'>N/A</td>";
                     }
 
+                    // Session is currently running.
+                    if ($sessionClosed == 0 && $sessionEnd === NULL) {
+                      echo "<td class='text-center' style='color: green;'>Session Running</td>";
+                    }
+
+                    // The session has ended and there is an end time recorded.
+                    if ($sessionClosed == 1 && $sessionEnd !== NULL) {
+                      echo "<td class='text-center'>{$sessionEndTime}</td>";
+                    }
+
+                    // Display the duration of the session.
                     echo "<td class='text-center'>" . timeElapsed($sessionStart) . "</td>";
 
                     // Session Paid?
@@ -96,8 +110,6 @@ if (session_status() == PHP_SESSION_NONE) {
                       echo "<td></td>";
                     }
 
-                    // Session Location?
-                    echo "<td class='text-center'>{$sessionLocation}</td>";
                   echo "</tr>";
                 echo "</tbody>";
             }
