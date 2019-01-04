@@ -37,21 +37,21 @@ if (isset($_POST['sessionOut'])) {
       // For each result in the array.
       while($row = mysqli_fetch_array($result)) {
         // Map session to variable.
+        // Generate current timestamp.
         $sessionID = $row['session_id'];
         $timestamp = date('Y-m-d G:i:s');
+        // Run SQL
         if (mysqli_query($link, "UPDATE sessions SET session_end = '$timestamp', session_closed = '1' WHERE session_id = '$sessionID'")) {
           // Record updated and session closed.
           $_SESSION['message'] = "<p class='alert alert-success'>Record updated successfully</p>";
           // Remove session Session and change the page.
           unset($_SESSION['session']);
-          // Return to page.
           header('location:' . $environment . 'index.php');
         } else {
           // Error Message.
           $_SESSION['message'] = "<p class='alert alert-danger'>ERROR: " . mysqli_error($link) . "</p>";
           // Remove session Session and change the page.
           unset($_SESSION['session']);
-          // Return to page.
           header('location:' . $environment . 'index.php');
         }
       }
@@ -60,7 +60,6 @@ if (isset($_POST['sessionOut'])) {
       $_SESSION['message'] = "<p class='alert alert-info'>No matching session found.</p>";
       // Remove session Session and change the page.
       unset($_SESSION['session']);
-      // Return to page.
       header('location:' . $environment . 'index.php');
     }
   } else {
