@@ -266,7 +266,7 @@ if (isset($_POST['location_update'])) {
 
   $itemUpdateSQL = mysqli_query($link, "UPDATE locations SET
     location_name='$name',
-    location_icon='$description'
+    location_description='$description'
     WHERE
     location_id='$id'"
   );
