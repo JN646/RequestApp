@@ -113,22 +113,4 @@ function isSessionSet($not, $location) {
 		}
 	}
 }
-
-//############## Is Session Active Requests ####################################
-function isSessionsActive($link, $sessionID) {
-	$query = "SELECT * FROM sessions
-	WHERE session_id='$sessionID' AND session_closed = 0";
-
-	// Run Query.
-	$result = mysqli_query($link, $query);
-	$row = mysqli_fetch_array($result);
-	$sessionNumber = $row['session_id'];
-	$sessionEnd = $row['session_end'];
-
-	if ($sessionID == $sessionNumber) {
-		return "<td class='text-center'>{$sessionID}</td>";
-	} else {
-		return "<td class='text-center' style='color: red;' title='{$sessionEnd}'>{$sessionID}</td>";
-	}
-}
 ?>

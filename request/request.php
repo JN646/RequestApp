@@ -10,6 +10,30 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <?php isSessionSet('not', 'lib/sessionselect.php'); ?>
 
+<?php
+//############## Is Session Active Requests ####################################
+function isSessionsActive($link, $sessionID) {
+	$query = "SELECT * FROM sessions
+	WHERE session_id='$sessionID' AND session_closed = 0";
+
+	// Run Query.
+	$result = mysqli_query($link, $query);
+	$row = mysqli_fetch_array($result);
+	$sessionNumber = $row['session_id'];
+	$sessionEnd = $row['session_end'];
+
+  if ($sessionEnd === NULL) {
+    $sessionEnd == 'No End Time';
+  }
+
+	if ($sessionID == $sessionNumber) {
+		return "<td class='text-center' title='Still Active!'>{$sessionID}</td>";
+	} else {
+		return "<td class='text-center' style='color: red;' title={$sessionEnd}>{$sessionID}</td>";
+	}
+}
+?>
+
 <body>
 <div class="container">
   <br>
@@ -34,6 +58,7 @@ if (session_status() == PHP_SESSION_NONE) {
     $activesql = "SELECT * FROM transaction_log
     INNER JOIN items ON transaction_log.trans_item_id=items.item_id
     INNER JOIN types ON transaction_log.trans_type_id=types.type_id
+    INNER JOIN sessions ON sessions.session_id=transaction_log.trans_session_id
     ORDER BY trans_time DESC";
 
     if ($result = mysqli_query($link, $activesql)) {
@@ -49,6 +74,7 @@ if (session_status() == PHP_SESSION_NONE) {
           <th class='text-center'>Item</th>
           <th class='text-center'>Type</th>
           <th class='text-center'>Time</th>
+          <th class='text-center'>Closed</th>
           <th class='text-center'>Delivered</th>
           <th class='text-center' colspan="3">Action</th>
         </tr>
@@ -64,6 +90,8 @@ if (session_status() == PHP_SESSION_NONE) {
             $transTypeIcon = $row['type_icon'];
             $transTime = $row['trans_time'];
             $transDelivered = $row['trans_delivered'];
+            $sessionID = $row['session_id'];
+            $sessionClosed = $row['session_closed'];
 
               // Draw Table.
               echo "<tbody>";
@@ -85,21 +113,31 @@ if (session_status() == PHP_SESSION_NONE) {
                   echo "<td>{$transTypeIcon} {$transType}</td>";
                   echo "<td>" . date("H:m:s - m/d/Y", strtotime($transTime)) . "</td>";
 
-                  // Item been delivered?
-                  if ($transDelivered != 0 || $transDelivered != 1) {
-                    if ($transDelivered == 1) {
-                      echo "<td class='text-center text-green'><i class='fas fa-check'></i></td>";
-                    } else if ($transDelivered == 0) {
-                      echo "<td></td>";
-                    }
+                  if ($transSession == $sessionID) {
+                    echo "<td class='text-center'>{$sessionClosed}</td>";
+                  } else {
+                    echo "<td class='text-center'>N/A</td>";
+                  }
 
-                    if ($transDelivered == 0) {
-                      echo "<td class='text-center'><a href='../crud/server.php?delivered={$transItemID}' class='view_btn'><i class='fas fa-truck'></i></a></td>";
-                    } else if ($transDelivered == 1) {
-                      echo "<td></td>";
+                  // Item been delivered?
+                  if ($sessionClosed == 0) {
+                    if ($transDelivered != 0 || $transDelivered != 1) {
+                      if ($transDelivered == 1) {
+                        echo "<td class='text-center text-green'><i class='fas fa-check'></i></td>";
+                      } else if ($transDelivered == 0) {
+                        echo "<td></td>";
+                      }
+
+                      if ($transDelivered == 0) {
+                        echo "<td class='text-center'><a href='../crud/server.php?delivered={$transItemID}' class='view_btn'><i class='fas fa-truck'></i></a></td>";
+                      } else if ($transDelivered == 1) {
+                        echo "<td></td>";
+                      }
+                    } else {
+                      echo "<td class='text-red'>Error</td>";
                     }
                   } else {
-                    echo "<td class='text-red'>Error</td>";
+                    echo "<td></td>";
                   }
 
                   // Action Buttons
