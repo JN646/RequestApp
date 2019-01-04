@@ -111,6 +111,8 @@ $sessionID = $_SESSION['session'];
                   // Price negative numbers.
                   if ($itemPrice < 0.00) {
                     echo "<td class='text-center text-red'>{$currencySymb}{$itemPrice}</td>";
+                  } else if ($itemPrice == 0.00) {
+                    echo "<td class='text-center text-green'>FREE!</td>";
                   } else {
                     echo "<td class='text-center'>{$currencySymb}{$itemPrice}</td>";
                   }
@@ -122,33 +124,19 @@ $sessionID = $_SESSION['session'];
               echo "<tfooter>";
                 // Sub Total
                 echo "<tr>";
-                  echo "<td></td>";
-                  echo "<td></td>";
-                  echo "<td></td>";
-                  echo "<td></td>";
-                  echo "<td></td>";
+                  echo "<td colspan='5' rowspan='3'></td>";
                   echo "<td class='text-center'><strong>Sub Total:</strong></td>";
                   echo "<td class='text-center'>" . $currencySymb . ($priceTotal - $vatPrice) . "</td>";
                 echo "</tr>";
 
                 // VAT
                 echo "<tr>";
-                  echo "<td></td>";
-                  echo "<td></td>";
-                  echo "<td></td>";
-                  echo "<td></td>";
-                  echo "<td></td>";
                   echo "<td class='text-center'><strong>VAT:</strong></td>";
                   echo "<td class='text-center'>{$currencySymb}{$vatPrice}</td>";
                 echo "</tr>";
 
                 // Total
                 echo "<tr>";
-                  echo "<td></td>";
-                  echo "<td></td>";
-                  echo "<td></td>";
-                  echo "<td></td>";
-                  echo "<td></td>";
                   echo "<td class='text-center'><strong>Total:</strong></td>";
                   echo "<td class='text-center'>{$currencySymb}{$priceTotal}</td>";
                 echo "</tr>";
@@ -164,11 +152,13 @@ $sessionID = $_SESSION['session'];
         echo "<p class='alert alert-danger'>ERROR: " . mysqli_error($link) . "</p>";
     } ?>
 
-    <h3>Finished Ordering?</h3>
-    <p>If you have finished your session, press the button below to request your bill.</p>
-    <form class="" action="#" method="post">
-      <button class='btn btn-primary' type="button" name="closeSession" data-toggle="modal" data-target="#closeSession">Close Session</button>
-    </form>
+    <div>
+      <h3>Finished Ordering?</h3>
+      <p>If you have finished your session, press the button below to request your bill.</p>
+      <form class="" action="#" method="post">
+        <button class='btn btn-primary' type="button" name="closeSession" data-toggle="modal" data-target="#closeSession">Close Session</button>
+      </form>
+    </div>
 
   </div>
 </div>

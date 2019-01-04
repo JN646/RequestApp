@@ -105,8 +105,7 @@ if (isset($_GET['type_edit'])) {
 
         <?php
         // ACTIVE RESULTS
-        $activesql = "SELECT * FROM types ORDER BY type_name ASC";
-        if ($result = mysqli_query($link, $activesql)) {
+        if ($result = mysqli_query($link, "SELECT * FROM types ORDER BY type_name ASC")) {
             if (mysqli_num_rows($result) > 0) {
                 ?>
         <table id='resultTable' class='table table-sm table-bordered'>
@@ -127,13 +126,7 @@ if (isset($_GET['type_edit'])) {
                 $typeIcon = $row['type_icon'];
                 $typeActive = $row['type_active'];
                 $typeCount = countThings($link, $typeName, 0);
-
-                // Set the active table row class.
-                if ($typeActive == 0) {
-                  $typeActiveFlag = "table-active";
-                } else {
-                  $typeActiveFlag = "";
-                }
+                $typeActiveFlag = ($typeActive == 0 ? "table-active" : "");
 
                   // Draw Table.
                   echo "<tbody>";

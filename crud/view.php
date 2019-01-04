@@ -62,7 +62,7 @@
           if ($notes == '') {
             echo "<span class='text-center'>There is currently no description.</span>";
           } else {
-            echo "<span>" . $notes . "</span>";
+            echo "<span>{$notes}</span>";
           }
           ?>
         </div>

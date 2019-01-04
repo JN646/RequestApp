@@ -92,8 +92,7 @@ if (isset($_GET['location_edit'])) {
 
           <?php
           // ACTIVE RESULTS
-          $activesql = "SELECT * FROM locations ORDER BY location_name ASC";
-          if ($result = mysqli_query($link, $activesql)) {
+          if ($result = mysqli_query($link, "SELECT * FROM locations ORDER BY location_name ASC")) {
               if (mysqli_num_rows($result) > 0) {
                   ?>
           <table id='resultTable' class='table table-sm table-bordered'>

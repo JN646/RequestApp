@@ -85,10 +85,12 @@ if (isset($_GET['edit'])) {
                     <?php
                     // Type Drowndown Menu
                     $typeResult = mysqli_query($link,"SELECT * FROM types ORDER BY type_name ASC");
+                    $typeID = $row['type_id'];
+                    $typeName = $row['type_name'];
                     echo "<select id='typeSelect' class='form-control' name='type'>";
                       echo "<option class='form-control' value='0'>Please select...</option>";
                       while($row = mysqli_fetch_array($typeResult)) {
-                        echo "<option class='form-control' value='" . $row['type_id'] . "'>" . $row['type_name'] . "</option>";
+                        echo "<option class='form-control' value='{$typeID}'>{$typeName}</option>";
                       }
                       echo "</select>";
                       ?>
