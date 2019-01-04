@@ -114,30 +114,31 @@ function isSessionsActive($link, $sessionID) {
                   echo "<td>" . date("H:m:s - m/d/Y", strtotime($transTime)) . "</td>";
 
                   if ($transSession == $sessionID) {
-                    echo "<td class='text-center'>{$sessionClosed}</td>";
+                    echo "<td id='rowSessionClosed' class='text-center'>{$sessionClosed}</td>";
                   } else {
-                    echo "<td class='text-center'>N/A</td>";
+                    echo "<td id='rowSessionClosed' class='text-center'>N/A</td>";
                   }
 
                   // Item been delivered?
                   if ($sessionClosed == 0) {
                     if ($transDelivered != 0 || $transDelivered != 1) {
                       if ($transDelivered == 1) {
-                        echo "<td class='text-center text-green'><i class='fas fa-check'></i></td>";
+                        echo "<td id='rowItemDelivered' class='text-center text-green'><i class='fas fa-check'></i></td>";
                       } else if ($transDelivered == 0) {
-                        echo "<td></td>";
+                        echo "<td id='rowItemDelivered'></td>";
                       }
 
                       if ($transDelivered == 0) {
-                        echo "<td class='text-center'><a href='../crud/server.php?delivered={$transItemID}' class='view_btn'><i class='fas fa-truck'></i></a></td>";
+                        echo "<td id='rowItemDeliveredAction' class='text-center'><a href='../crud/server.php?delivered={$transItemID}' class='view_btn'><i class='fas fa-truck'></i></a></td>";
                       } else if ($transDelivered == 1) {
-                        echo "<td></td>";
+                        echo "<td id='rowItemDeliveredAction'></td>";
                       }
                     } else {
-                      echo "<td class='text-red'>Error</td>";
+                      echo "<td id='rowItemDeliveredAction' class='text-red'>Error</td>";
                     }
                   } else {
-                    echo "<td></td>";
+                    echo "<td id='rowItemDeliveredAction'></td>";
+                    echo "<td id='rowItemDeliveredAction'></td>";
                   }
 
                   // Action Buttons
