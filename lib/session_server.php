@@ -66,4 +66,24 @@ if (isset($_POST['sessionOut'])) {
     $table = 0;
   }
 }
+
+// Force Logout Session
+if (isset($_GET['forceClose'])) {
+  $sessionID = $_GET['forceClose'];
+  $timestamp = date('Y-m-d G:i:s');
+  // Run SQL
+  if (mysqli_query($link, "UPDATE sessions SET session_end = '$timestamp', session_closed = '1' WHERE session_id = '$sessionID'")) {
+    // Record updated and session closed.
+    $_SESSION['message'] = "<p class='alert alert-success'>Record updated successfully</p>";
+    // Remove session Session and change the page.
+    unset($_SESSION['session']);
+    header('location:' . $environment . 'index.php');
+  } else {
+    // Error Message.
+    $_SESSION['message'] = "<p class='alert alert-danger'>ERROR: " . mysqli_error($link) . "</p>";
+    // Remove session Session and change the page.
+    unset($_SESSION['session']);
+    header('location:' . $environment . 'index.php');
+  }
+}
 ?>

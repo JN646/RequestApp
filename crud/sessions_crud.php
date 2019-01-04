@@ -52,6 +52,7 @@ if (session_status() == PHP_SESSION_NONE) {
             <th class='text-center'>Dur</th>
             <th class='text-center'>Paid</th>
             <th class='text-center'>Closed</th>
+            <th class='text-center'>Actions</th>
           </tr>
         </thead>
         <?php
@@ -106,6 +107,13 @@ if (session_status() == PHP_SESSION_NONE) {
                     // Session Closed?
                     if ($sessionClosed == 1) {
                       echo "<td class='text-center'><i class='fas fa-check'></i></td>";
+                    } else {
+                      echo "<td></td>";
+                    }
+
+                    if ($sessionClosed == 0 && $sessionEnd === NULL) {
+                      echo "<td class='text-center'><a href='../lib/session_server.php?forceClose={$sessionID}'>Close</a>
+                      </td>";
                     } else {
                       echo "<td></td>";
                     }
