@@ -16,11 +16,11 @@ if (session_status() == PHP_SESSION_NONE) {
   <div class="col-md-12">
     <!-- Notification Block -->
     <?php if (isset($_SESSION['message'])): ?>
-        <div class="msg">
-          <?php echo $_SESSION['message']; ?>
-          <?php unset($_SESSION['message']); ?>
-        </div>
-      <?php endif ?>
+      <div class="msg">
+        <?php echo $_SESSION['message']; ?>
+        <?php unset($_SESSION['message']); ?>
+      </div>
+    <?php endif ?>
 
     <h2>Request Index</h2>
 
@@ -73,7 +73,7 @@ if (session_status() == PHP_SESSION_NONE) {
                   // Display Session Information.
                   if ($transSession != '') {
                     if ($transSession != 0) {
-                      echo "<td class='text-center'>{$transSession}</td>";
+                      echo isSessionsActive($link, $transSession);
                     } else {
                       echo "<td class='text-center'>Error</td>";
                     }

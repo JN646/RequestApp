@@ -11,6 +11,13 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <body>
   <div class="container">
+    <!-- Notification Block -->
+    <?php if (isset($_SESSION['message'])): ?>
+      <div class="msg">
+        <?php echo $_SESSION['message']; ?>
+        <?php unset($_SESSION['message']); ?>
+      </div>
+    <?php endif ?>
     <div id='sessionSelectBox' class=''>
       <div id='sessionSelectForm' class='col-md-12 text-center border p-3'>
         <?php

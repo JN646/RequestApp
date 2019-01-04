@@ -7,7 +7,9 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 ?>
 
-<?php isSessionSet('not','lib/sessionselect.php'); ?>
+<?php
+isSessionSet('not','lib/sessionselect.php');
+?>
 
 <body>
   <div class="fluid-container">
