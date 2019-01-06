@@ -37,7 +37,8 @@ if (session_status() == PHP_SESSION_NONE) {
                 while($row = mysqli_fetch_array($result)) {
                   $locationID = $row['location_id'];
                   $locationName = $row['location_name'];
-                  echo "<option class='form-control' value='{$locationID}'>{$locationName} " . checkRunningSession($locationID,$link) . "</option>";
+                  $locationDescription= $row['location_description'];
+                  echo "<option class='form-control' value='{$locationID}'>{$locationName} - " . capCharacters($locationDescription,25) . checkRunningSession($locationID,$link) . "</option>";
                 }
                 mysqli_close($link);
                 ?>

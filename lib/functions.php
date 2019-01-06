@@ -113,4 +113,15 @@ function isSessionSet($not, $location) {
 		}
 	}
 }
+
+//############## MISC ##########################################################
+// Cap the number of characters.
+function capCharacters($input,$numberCap) {
+	if (strlen($input) <= $numberCap) {
+		return $input;
+	} else {
+		$output = substr($input,0,$numberCap) . '...';
+		return $output;
+	}
+}
 ?>

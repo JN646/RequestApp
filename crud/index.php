@@ -142,7 +142,9 @@ if (isset($_GET['edit'])) {
                     echo "<select id='schemaSelect' class='form-control' name='schema'>";
                       echo "<option class='form-control' value='0'>Please select...</option>";
                       while($row = mysqli_fetch_array($schemaResult)) {
-                        echo "<option class='form-control' value='" . $row['schema_id'] . "'>" . $row['schema_name'] . "</option>";
+                        $schemaID = $row['schema_id'];
+                        $schemaName = $row['schema_name'];
+                        echo "<option class='form-control' value='{$schemaID}'>{$schemaName}</option>";
                       }
                       echo "</select>";
                       ?>
