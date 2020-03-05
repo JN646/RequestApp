@@ -10,10 +10,10 @@ if (session_status() == PHP_SESSION_NONE) {
 <?php isSessionSet('is', 'index.php'); ?>
 
 <body>
-  <div class="container">
+  <div id='sessionSelectContainer' class="fluid-container">
     <!-- Notification Block -->
     <?php if (isset($_SESSION['message'])): ?>
-      <div class="msg">
+      <div id='statusMessage' class="msg">
         <?php echo $_SESSION['message']; ?>
         <?php unset($_SESSION['message']); ?>
       </div>

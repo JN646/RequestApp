@@ -41,6 +41,23 @@ a.nav-link:hover {
   color: green;
 }
 
+/* Delete and Edit */
+a.del_btn {
+  color: red;
+}
+
+a.del_btn:hover {
+  color: darkred;
+}
+
+a.edit_btn {
+    color: forestgreen;
+}
+
+a.edit_btn:hover {
+    color: darkgreen;
+}
+
 /* Results Table */
 div#resultScroller {
   height: 50vh;
